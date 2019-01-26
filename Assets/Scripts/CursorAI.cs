@@ -16,11 +16,16 @@ namespace GGJ2019
 
         private bool hasEdgy        = false;
         private bool prevHasEdgy    = false;
+        private bool openWindow     = false;
 
         //Temporary placeholder for the size of the icon (player)
-        private float IconSize       = 0.2f;
+        // Add correct size
+        private float IconSize       = 5f;
 
         private RectTransform rectTransform;
+
+        public GameObject playerSelected;
+        private GameObject playerSelectedInstance;
 
         // Start is called before the first frame update
         void Start()
@@ -28,7 +33,6 @@ namespace GGJ2019
             rectTransform = GetComponent<RectTransform>();
             cursorPosZ = rectTransform.position.z;
             PlayerMoved();
-            
         }
 
         // Update is called once per frame
@@ -46,15 +50,32 @@ namespace GGJ2019
 
             if (!hasEdgy)
             {
+                //Cursor to player
                 if (!CursorOnDestination(edgy.rectTransform.position))
+                {
                     rectTransform.position += direction * Time.deltaTime;
+                }
                 else
+                {
+                    //Has player
                     hasEdgy = true;
+                    edgy.takenByCursor = true;
+                    playerSelectedInstance = Instantiate(playerSelected, rectTransform.position - (Vector3.down * IconSize), Quaternion.identity, rectTransform);
+                    playerSelectedInstance.transform.localPosition = Vector3.down * IconSize;
+                }
             }
             else
             {
+                //Brings player to bin
                 if (!CursorOnDestination(bin.GetComponent<RectTransform>().position))
+                {
                     rectTransform.position += direction * Time.deltaTime;
+                }
+                else
+                {
+                    //Is on bin
+                    Destroy(playerSelectedInstance);
+                }
             }
         }
 
