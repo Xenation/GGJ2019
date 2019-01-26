@@ -42,7 +42,7 @@ namespace GGJ2019
             playerMoved = false;
 
             //Use input.GetKeyDown() as it makes simpler code for behavior
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetButtonDown("Up"))
             {
                 right = false;
                 left = false;
@@ -50,7 +50,7 @@ namespace GGJ2019
                 down = false;
                 startTime = Time.time;
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetButtonDown("Left"))
             {
                 right = false;
                 left = true;
@@ -58,7 +58,7 @@ namespace GGJ2019
                 down = false;
                 startTime = Time.time;
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetButtonDown("Down"))
             {
                 right = false;
                 left = false;
@@ -66,7 +66,7 @@ namespace GGJ2019
                 down = true;
                 startTime = Time.time;
             }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetButtonDown("Right"))
             {
                 right = true;
                 left = false;
@@ -75,25 +75,25 @@ namespace GGJ2019
                 startTime = Time.time;
             }
 
-            if (Input.GetKeyUp(KeyCode.RightArrow))
+            if (Input.GetButtonUp("Right"))
             {
                 if (right)
                     inFlood = false;
                 right = false;
             }
-            if (Input.GetKeyUp(KeyCode.UpArrow))
+            if (Input.GetButtonUp("Up"))
             {
                 if (up)
                     inFlood = false;
                 up = false;
             }
-            if (Input.GetKeyUp(KeyCode.LeftArrow))
+            if (Input.GetButtonUp("Left"))
             {
                 if (left)
                     inFlood = false;
                 left = false;
             }
-            if (Input.GetKeyUp(KeyCode.DownArrow))
+            if (Input.GetButtonUp("Down"))
             {
                 if (down)
                     inFlood = false;
