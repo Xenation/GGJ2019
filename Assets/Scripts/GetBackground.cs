@@ -34,12 +34,12 @@ public class GetBackground : MonoBehaviour
         }
         backgroundPath = backgroundPath.Remove(lastUsefulIndex);
         backgroundGO = Instantiate(backgroundPrefab);
-        currentImagePath = backgroundPath;
         changeImage(backgroundPath);
     }
 
     void changeImage(string imagePath)
     {
+        currentImagePath = imagePath;
         byte[] bytes = File.ReadAllBytes(imagePath);
         Texture2D texture2D = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
         texture2D.filterMode = FilterMode.Trilinear;
