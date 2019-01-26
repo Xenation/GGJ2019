@@ -35,28 +35,28 @@ namespace GGJ2019
             playerMoved = false;
 
             //Use input.GetKeyDown() as it makes simpler code for behavior
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 right = false;
                 left = false;
                 up = true;
                 down = false;
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 right = false;
                 left = true;
                 up = false;
                 down = false;
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.S))
             {
                 right = false;
                 left = false;
                 up = false;
                 down = true;
             }
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.D))
             {
                 right = true;
                 left = false;
@@ -64,19 +64,19 @@ namespace GGJ2019
                 down = false;
             }
 
-            if (Input.GetKeyUp(KeyCode.Z))
+            if (Input.GetKeyUp(KeyCode.D))
             {
                 right = false;
             }
-            if (Input.GetKeyUp(KeyCode.Q))
+            if (Input.GetKeyUp(KeyCode.Z))
             {
                 up = false;
             }
-            if (Input.GetKeyUp(KeyCode.S))
+            if (Input.GetKeyUp(KeyCode.Q))
             {
                 left = false;
             }
-            if (Input.GetKeyUp(KeyCode.D))
+            if (Input.GetKeyUp(KeyCode.S))
             {
                 down = false;
             }
@@ -94,23 +94,15 @@ namespace GGJ2019
             //Move player in direction acquired.
             if(right)
             {
-                if((gridPosition.y + 1) < grid.width && grid.grid[gridPosition.x][gridPosition.y + 1].isCrossable)
+                if((gridPosition.x + 1) < grid.width && grid.grid[gridPosition.y][gridPosition.x + 1].isCrossable)
                 {
-                    gridPosition.y++;
+                    gridPosition.x++;
                     return true;
                 }
             }
             else if(left)
             {
-                if(gridPosition.y - 1 >= 0 && grid.grid[gridPosition.x][gridPosition.y - 1].isCrossable)
-                {
-                    gridPosition.y--;
-                    return true;
-                }
-            }
-            else if(up)
-            {
-                if(gridPosition.x -1 >= 0 && grid.grid[gridPosition.x - 1][gridPosition.y].isCrossable)
+                if(gridPosition.x - 1 >= 0 && grid.grid[gridPosition.y][gridPosition.x - 1].isCrossable)
                 {
                     gridPosition.x--;
                     return true;
@@ -118,9 +110,17 @@ namespace GGJ2019
             }
             else if(down)
             {
-                if(gridPosition.x + 1 < grid.height && grid.grid[gridPosition.x + 1][gridPosition.y].isCrossable)
+                if(gridPosition.y -1 >= 0 && grid.grid[gridPosition.y - 1][gridPosition.x].isCrossable)
                 {
-                    gridPosition.x++;
+                    gridPosition.y--;
+                    return true;
+                }
+            }
+            else if(up)
+            {
+                if(gridPosition.y + 1 < grid.height && grid.grid[gridPosition.y + 1][gridPosition.x].isCrossable)
+                {
+                    gridPosition.y++;
                     return true;
                 }
             }
