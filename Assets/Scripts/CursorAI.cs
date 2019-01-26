@@ -154,6 +154,10 @@ namespace GGJ2019
                  && rectTransform.position.y > destination.y - IconSize);
         }
 
+        /******************************
+         * Call everytime Window opens
+         * ---------------------------
+         * ***************************/
         public void addToWindowList(Vector3 dest)
         {
             windowList.Add(dest);
