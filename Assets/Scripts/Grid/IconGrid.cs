@@ -8,45 +8,38 @@ namespace GGJ2019 {
 	{
 		public int height = 10, width = 12;
 		public Canvas canva;
-		private float stepVertical, stepHorizontal;
-
-		public List<List<GridIcon>> grid;
+		
+		public RectTransform gridParent;
+		public Vector2 cellSize { get; private set; }
+		public GridIcon[,] grid;
 		
 		void Awake()
 		{
 			//Instanciate grid
-			grid = new List<List<GridIcon>>();
-			for (int i = 0; i < height; i++) {
-				grid.Add(new List<GridIcon>());
+			grid = new GridIcon[width, height];
+			cellSize = new Vector2(gridParent.rect.size.x / width, gridParent.rect.size.y / height);
+			InitGrid();
+		}
+
+		private void InitGrid() {
+			foreach (RectTransform transf in gridParent) {
+				GridIcon icon = transf.GetComponent<GridIcon>();
+				if (icon == null) continue;
+				Vector2Int gridPos = GetGridPos(transf.position);
+				grid[gridPos.x, gridPos.y] = icon;
+				transf.position = GetCanvasPos(gridPos);
+				transf.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, cellSize.x);
+				transf.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, cellSize.y);
 			}
-			for (int i = 0; i < height; i++) {
-				//grid[i] = new List<GridIcon>();
-				for (int j = 0; j < width; j++) {
-					grid[i].Add(new GridIcon());
-				}
-			}
-
-			//Step for positions of the icons
-			//+2 for space on each extremity
-			stepVertical = Screen.height / (height + 2);
-			stepHorizontal = Screen.width / (width + 2);
 		}
 
-		// Update is called once per frame
-		void Update()
-		{
-			DrawGrid();
+		public Vector2Int GetGridPos(Vector2 canvasPos) {
+			return new Vector2Int((int) (canvasPos.x / cellSize.x), (int) (canvasPos.y / cellSize.y));
 		}
 
-		private void DrawGrid()
-		{
-        
+		public Vector2 GetCanvasPos(Vector2Int gridPos) {
+			return new Vector2(gridPos.x * cellSize.x + cellSize.x / 2f, gridPos.y * cellSize.y + cellSize.y / 2f);
 		}
 
-		//Returns a vector containing both steps
-		public Vector2 GetStep()
-		{
-			return new Vector2(stepVertical, stepHorizontal);
-		}
 	}
 }

@@ -15,17 +15,13 @@ namespace GGJ2019
                         up      = false,
                         down    = false;
 
-        private Vector2 step;
-
         [HideInInspector] public bool playerMoved = false;
 
         [HideInInspector]public RectTransform rectTransform;
-
-        // Start is called before the first frame update
+		
         void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
-            step = grid.GetStep();
             gridPosition = new Vector2Int(0,0);
         }
 
@@ -83,7 +79,7 @@ namespace GGJ2019
 
 
             playerMoved = MovePlayer();
-            Vector3 newPos = new Vector3((gridPosition.x + 1)* step.y, (gridPosition.y + 1) * step.x );
+			Vector3 newPos = grid.GetCanvasPos(gridPosition);
             rectTransform.position = newPos;
             Debug.Log(gridPosition.x + " :   : " + gridPosition.y);
         }
@@ -91,34 +87,39 @@ namespace GGJ2019
         //Returns true if the player has moved
         private bool MovePlayer()
         {
-            //Move player in direction acquired.
-            if(right)
+			//Move player in direction acquired.
+			GridIcon destIcon;
+			if (right && (gridPosition.x + 1) < grid.width)
             {
-                if((gridPosition.x + 1) < grid.width && grid.grid[gridPosition.y][gridPosition.x + 1].isCrossable)
+				destIcon = grid.grid[gridPosition.x + 1, gridPosition.y];
+				if (destIcon == null || destIcon.isCrossable)
                 {
                     gridPosition.x++;
                     return true;
                 }
             }
-            else if(left)
+            else if(left && gridPosition.x - 1 >= 0)
             {
-                if(gridPosition.x - 1 >= 0 && grid.grid[gridPosition.y][gridPosition.x - 1].isCrossable)
+				destIcon = grid.grid[gridPosition.x - 1, gridPosition.y];
+				if (destIcon == null || destIcon.isCrossable)
                 {
                     gridPosition.x--;
                     return true;
                 }
             }
-            else if(down)
+            else if(down && gridPosition.y - 1 >= 0)
             {
-                if(gridPosition.y -1 >= 0 && grid.grid[gridPosition.y - 1][gridPosition.x].isCrossable)
+				destIcon = grid.grid[gridPosition.x, gridPosition.y - 1];
+				if (destIcon == null || destIcon.isCrossable)
                 {
                     gridPosition.y--;
                     return true;
                 }
             }
-            else if(up)
+            else if(up && gridPosition.y + 1 < grid.height)
             {
-                if(gridPosition.y + 1 < grid.height && grid.grid[gridPosition.y + 1][gridPosition.x].isCrossable)
+				destIcon = grid.grid[gridPosition.x, gridPosition.y + 1];
+                if(destIcon == null || destIcon.isCrossable)
                 {
                     gridPosition.y++;
                     return true;
