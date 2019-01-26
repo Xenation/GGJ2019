@@ -55,7 +55,7 @@ namespace GGJ2019
          * Can be replaced by 
          * ChangeCursorDirection
          * ***************************/
-        void PlayerMoved()
+        public void PlayerMoved()
         {
             ChangeCursorDirection(edgy.transform.position);
         }
