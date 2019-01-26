@@ -19,10 +19,10 @@ namespace GGJ2019
 
         [HideInInspector] public bool playerMoved = false;
 
-        private RectTransform rectTransform;
+        [HideInInspector]public RectTransform rectTransform;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
             step = grid.GetStep();

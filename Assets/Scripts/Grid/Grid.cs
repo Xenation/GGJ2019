@@ -12,7 +12,7 @@ public class Grid : MonoBehaviour
     public List<List<GridIcon>> grid;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //Instanciate grid
         grid = new List<List<GridIcon>>();

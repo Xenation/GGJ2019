@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GGJ2019
 {
     public class CursorAI : MonoBehaviour
     {
-        public GameObject edgy;
+        public Player edgy;
         public GameObject bin;
         public float speed;
         
@@ -19,16 +20,24 @@ namespace GGJ2019
         //Temporary placeholder for the size of the icon (player)
         private float IconSize       = 0.2f;
 
+        private RectTransform rectTransform;
+
         // Start is called before the first frame update
         void Start()
         {
-            cursorPosZ = transform.position.z;
+            rectTransform = GetComponent<RectTransform>();
+            cursorPosZ = rectTransform.position.z;
             PlayerMoved();
+            
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
+            if (edgy.playerMoved)
+            {
+                PlayerMoved();
+            }
             //Calculate direction to the player if the player has moved
             if(prevHasEdgy != hasEdgy)
             {
@@ -37,15 +46,15 @@ namespace GGJ2019
 
             if (!hasEdgy)
             {
-                if (!CursorOnDestination(edgy.transform.position))
-                    transform.position += direction * Time.deltaTime;
+                if (!CursorOnDestination(edgy.rectTransform.position))
+                    rectTransform.position += direction * Time.deltaTime;
                 else
                     hasEdgy = true;
             }
             else
             {
-                if (!CursorOnDestination(bin.transform.position))
-                    transform.position += direction * Time.deltaTime;
+                if (!CursorOnDestination(bin.GetComponent<RectTransform>().position))
+                    rectTransform.position += direction * Time.deltaTime;
             }
         }
 
@@ -57,12 +66,12 @@ namespace GGJ2019
          * ***************************/
         public void PlayerMoved()
         {
-            ChangeCursorDirection(edgy.transform.position);
+            ChangeCursorDirection(edgy.rectTransform.position);
         }
 
         void ChangeCursorDirection(Vector3 destination)
         {
-            direction = new Vector3(destination.x - transform.position.x, destination.y - transform.position.y, transform.position.z);
+            direction = new Vector3(destination.x - rectTransform.position.x, destination.y - rectTransform.position.y, rectTransform.position.z);
             direction.Normalize();
 
             direction *= speed;
@@ -79,21 +88,21 @@ namespace GGJ2019
 
             if (hasEdgy)
             {
-                ChangeCursorDirection(bin.transform.position);
+                ChangeCursorDirection(bin.GetComponent<RectTransform>().position);
             }
             else
             {
-                ChangeCursorDirection(edgy.transform.position);
+                ChangeCursorDirection(edgy.rectTransform.position);
             }
         }
 
         //Checks if the cursor is on edgy
         bool CursorOnDestination(Vector3 destination)
         {   
-            return (transform.position.x < destination.x + IconSize 
-                 && transform.position.x > destination.x - IconSize
-                 && transform.position.y < destination.y + IconSize 
-                 && transform.position.y > destination.y - IconSize);
+            return (rectTransform.position.x < destination.x + IconSize 
+                 && rectTransform.position.x > destination.x - IconSize
+                 && rectTransform.position.y < destination.y + IconSize 
+                 && rectTransform.position.y > destination.y - IconSize);
         }
 
 

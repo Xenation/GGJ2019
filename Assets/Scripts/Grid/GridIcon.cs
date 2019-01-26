@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GridIcon : MonoBehaviour
 {
     //Tells if this is an Icon or an OpenSpace
