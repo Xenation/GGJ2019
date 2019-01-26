@@ -17,9 +17,16 @@ namespace GGJ2019
 
         private Vector2 step;
 
-        [HideInInspector] public bool playerMoved = false;
+        [HideInInspector]public bool playerMoved = false;
 
         [HideInInspector]public RectTransform rectTransform;
+
+        //Time for window feeling
+        float startTime = 0;
+        float startTimeFlood = 0;
+        public float floodRate = 1;
+        public float timeBeforeFlood = 1;
+        bool inFlood = false;
 
         // Start is called before the first frame update
         void Awake()
@@ -35,49 +42,61 @@ namespace GGJ2019
             playerMoved = false;
 
             //Use input.GetKeyDown() as it makes simpler code for behavior
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 right = false;
                 left = false;
                 up = true;
                 down = false;
+                startTime = Time.time;
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 right = false;
                 left = true;
                 up = false;
                 down = false;
+                startTime = Time.time;
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 right = false;
                 left = false;
                 up = false;
                 down = true;
+                startTime = Time.time;
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 right = true;
                 left = false;
                 up = false;
                 down = false;
+                startTime = Time.time;
             }
 
-            if (Input.GetKeyUp(KeyCode.D))
+            if (Input.GetKeyUp(KeyCode.RightArrow))
             {
+                if (right)
+                    inFlood = false;
                 right = false;
             }
-            if (Input.GetKeyUp(KeyCode.Z))
+            if (Input.GetKeyUp(KeyCode.UpArrow))
             {
+                if (up)
+                    inFlood = false;
                 up = false;
             }
-            if (Input.GetKeyUp(KeyCode.Q))
+            if (Input.GetKeyUp(KeyCode.LeftArrow))
             {
+                if (left)
+                    inFlood = false;
                 left = false;
             }
-            if (Input.GetKeyUp(KeyCode.S))
+            if (Input.GetKeyUp(KeyCode.DownArrow))
             {
+                if (down)
+                    inFlood = false;
                 down = false;
             }
 
@@ -94,34 +113,98 @@ namespace GGJ2019
             //Move player in direction acquired.
             if(right)
             {
-                if((gridPosition.x + 1) < grid.width && grid.grid[gridPosition.y][gridPosition.x + 1].isCrossable)
+                if((gridPosition.x + 1) < grid.width && (grid.grid[gridPosition.y][gridPosition.x + 1].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null ))
                 {
-                    gridPosition.x++;
-                    return true;
+                    if (startTime == Time.time)
+                    {
+                        gridPosition.x++;
+                        return true;
+                    }
+                    else if (Time.time - startTime > timeBeforeFlood)
+                    {
+                        startTimeFlood = Time.time;
+                        inFlood = true;
+                        gridPosition.x++;
+                        return true;
+                    }
+                    else if (Time.time - startTimeFlood > floodRate && inFlood)
+                    {
+                        startTimeFlood = Time.time;
+                        gridPosition.x++;
+                        return true;
+                    }
                 }
             }
             else if(left)
             {
-                if(gridPosition.x - 1 >= 0 && grid.grid[gridPosition.y][gridPosition.x - 1].isCrossable)
+                if(gridPosition.x - 1 >= 0 && (grid.grid[gridPosition.y][gridPosition.x - 1].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
                 {
-                    gridPosition.x--;
-                    return true;
+                    if (startTime == Time.time)
+                    {
+                        gridPosition.x--;
+                        return true;
+                    }
+                    else if (Time.time - startTime > timeBeforeFlood)
+                    {
+                        startTimeFlood = Time.time;
+                        inFlood = true;
+                        gridPosition.x--;
+                        return true;
+                    }
+                    else if (Time.time - startTimeFlood > floodRate && inFlood)
+                    {
+                        startTimeFlood = Time.time;
+                        gridPosition.x--;
+                        return true;
+                    }
                 }
             }
             else if(down)
             {
-                if(gridPosition.y -1 >= 0 && grid.grid[gridPosition.y - 1][gridPosition.x].isCrossable)
+                if(gridPosition.y -1 >= 0 && (grid.grid[gridPosition.y - 1][gridPosition.x].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
                 {
-                    gridPosition.y--;
-                    return true;
+                    if (startTime == Time.time)
+                    {
+                        gridPosition.y--;
+                        return true;
+                    }
+                    else if (Time.time - startTime > timeBeforeFlood)
+                    {
+                        startTimeFlood = Time.time;
+                        inFlood = true;
+                        gridPosition.y--;
+                        return true;
+                    }
+                    else if (Time.time - startTimeFlood > floodRate && inFlood)
+                    {
+                        startTimeFlood = Time.time;
+                        gridPosition.y--;
+                        return true;
+                    }
                 }
             }
             else if(up)
             {
-                if(gridPosition.y + 1 < grid.height && grid.grid[gridPosition.y + 1][gridPosition.x].isCrossable)
+                if(gridPosition.y + 1 < grid.height && (grid.grid[gridPosition.y + 1][gridPosition.x].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
                 {
-                    gridPosition.y++;
-                    return true;
+                    if (startTime == Time.time)
+                    {
+                        gridPosition.y++;
+                        return true;
+                    }
+                    else if (Time.time - startTime > timeBeforeFlood)
+                    {
+                        startTimeFlood = Time.time;
+                        inFlood = true;
+                        gridPosition.y++;
+                        return true;
+                    }
+                    else if (Time.time - startTimeFlood > floodRate && inFlood)
+                    {
+                        startTimeFlood = Time.time;
+                        gridPosition.y++;
+                        return true;
+                    }
                 }
             }
             //gridPosition corresponds to coordinates in grid list
