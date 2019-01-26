@@ -104,7 +104,6 @@ namespace GGJ2019
             playerMoved = MovePlayer();
             Vector3 newPos = new Vector3((gridPosition.x + 1)* step.y, (gridPosition.y + 1) * step.x );
             rectTransform.position = newPos;
-            Debug.Log(gridPosition.x + " :   : " + gridPosition.y);
         }
 
         //Returns true if the player has moved
