@@ -15,17 +15,18 @@ namespace GGJ2019
                         up      = false,
                         down    = false;
 
-        private Vector2 Step;
+        private Vector2 step;
 
         [HideInInspector] public bool playerMoved = false;
 
-        private RectTransform rectTransform;
+        [HideInInspector]public RectTransform rectTransform;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
-            Step = grid.GetStep();
+            step = grid.GetStep();
+            gridPosition = new Vector2Int(0,0);
         }
 
         // Update is called once per frame
@@ -63,6 +64,10 @@ namespace GGJ2019
                 down = false;
             }
 
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                right = false;
+            }
             if (Input.GetKeyUp(KeyCode.Z))
             {
                 up = false;
@@ -75,15 +80,12 @@ namespace GGJ2019
             {
                 down = false;
             }
-            if (Input.GetKeyUp(KeyCode.D))
-            {
-                right = false;
-            }
 
 
             playerMoved = MovePlayer();
-
-            rectTransform.position = (gridPosition + new Vector2(1, 1)) * grid.GetStep();
+            Vector3 newPos = new Vector3((gridPosition.x + 1)* step.y, (gridPosition.y + 1) * step.x );
+            rectTransform.position = newPos;
+            Debug.Log(gridPosition.x + " :   : " + gridPosition.y);
         }
 
         //Returns true if the player has moved
@@ -92,30 +94,34 @@ namespace GGJ2019
             //Move player in direction acquired.
             if(right)
             {
-                if(grid.grid[gridPosition.x][gridPosition.y+1].isCrossable && gridPosition.y + 1 <= grid.width)
+                if((gridPosition.x + 1) < grid.width && grid.grid[gridPosition.y][gridPosition.x + 1].isCrossable)
                 {
-                    gridPosition.y++;
+                    gridPosition.x++;
+                    return true;
                 }
             }
             else if(left)
             {
-                if(grid.grid[gridPosition.x][gridPosition.y-1].isCrossable && gridPosition.y - 1 >= grid.width)
-                {
-                    gridPosition.y--;
-                }
-            }
-            else if(up)
-            {
-                if(grid.grid[gridPosition.x-1][gridPosition.y].isCrossable && gridPosition.x -1 >= grid.height)
+                if(gridPosition.x - 1 >= 0 && grid.grid[gridPosition.y][gridPosition.x - 1].isCrossable)
                 {
                     gridPosition.x--;
+                    return true;
                 }
             }
             else if(down)
             {
-                if(grid.grid[gridPosition.x+1][gridPosition.y].isCrossable && gridPosition.x + 1 <= grid.height)
+                if(gridPosition.y -1 >= 0 && grid.grid[gridPosition.y - 1][gridPosition.x].isCrossable)
                 {
-                    gridPosition.x++;
+                    gridPosition.y--;
+                    return true;
+                }
+            }
+            else if(up)
+            {
+                if(gridPosition.y + 1 < grid.height && grid.grid[gridPosition.y + 1][gridPosition.x].isCrossable)
+                {
+                    gridPosition.y++;
+                    return true;
                 }
             }
             //gridPosition corresponds to coordinates in grid list
