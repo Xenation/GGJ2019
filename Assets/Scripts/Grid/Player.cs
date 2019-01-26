@@ -6,7 +6,7 @@ namespace GGJ2019
 {
     public class Player : MonoBehaviour
     {
-        public Grid grid;
+        public IconGrid grid;
 
         private Vector2Int gridPosition;
 
