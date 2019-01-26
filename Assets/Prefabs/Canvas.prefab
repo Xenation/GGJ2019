@@ -179,7 +179,8 @@ MonoBehaviour:
   edgy: {fileID: 4073813437376210346}
   bin: {fileID: 4073813438067998662}
   speed: 100
-  playerSelected: {fileID: 0}
+  playerSelected: {fileID: 5453522905989141287, guid: e103f23d4f55bb74a815688fb360de7c,
+    type: 3}
 --- !u!1 &4073813437376210351
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2ffeccccaea074497bb58efc8f6f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 12
+  height: 10
   width: 12
   canva: {fileID: 4073813437816682735}
   gridParent: {fileID: 7544162945113988599}
