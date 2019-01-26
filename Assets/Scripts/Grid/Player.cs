@@ -21,6 +21,8 @@ namespace GGJ2019
 
         [HideInInspector]public RectTransform rectTransform;
 
+        [HideInInspector] public bool takenByCursor = false;
+
         //Time for window feeling
         float startTime = 0;
         float startTimeFlood = 0;
@@ -49,6 +51,7 @@ namespace GGJ2019
                 up = true;
                 down = false;
                 startTime = Time.time;
+                inFlood = false;
             }
             if (Input.GetButtonDown("Left"))
             {
@@ -57,6 +60,7 @@ namespace GGJ2019
                 up = false;
                 down = false;
                 startTime = Time.time;
+                inFlood = false;
             }
             if (Input.GetButtonDown("Down"))
             {
@@ -65,6 +69,7 @@ namespace GGJ2019
                 up = false;
                 down = true;
                 startTime = Time.time;
+                inFlood = false;
             }
             if (Input.GetButtonDown("Right"))
             {
@@ -73,6 +78,7 @@ namespace GGJ2019
                 up = false;
                 down = false;
                 startTime = Time.time;
+                inFlood = false;
             }
 
             if (Input.GetButtonUp("Right"))
@@ -102,115 +108,116 @@ namespace GGJ2019
 
 
             playerMoved = MovePlayer();
+
             Vector3 newPos = new Vector3((gridPosition.x + 1)* step.y, (gridPosition.y + 1) * step.x );
             rectTransform.position = newPos;
-            Debug.Log(gridPosition.x + " :   : " + gridPosition.y);
         }
 
         //Returns true if the player has moved
         private bool MovePlayer()
         {
-            //Move player in direction acquired.
-            if(right)
+            //check if player is not taken by the cursor
+            if (!takenByCursor)
             {
-                if((gridPosition.x + 1) < grid.width && (grid.grid[gridPosition.y][gridPosition.x + 1].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null ))
+                //Move player in direction acquired.
+                if (right)
                 {
-                    if (startTime == Time.time)
+                    if ((gridPosition.x + 1) < grid.width && (grid.grid[gridPosition.y][gridPosition.x + 1].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
                     {
-                        gridPosition.x++;
-                        return true;
+                        if (startTime == Time.time)
+                        {
+                            gridPosition.x++;
+                            return true;
+                        }
+                        else if (Time.time - startTime > timeBeforeFlood && !inFlood)
+                        {
+                            startTimeFlood = Time.time;
+                            inFlood = true;
+                            gridPosition.x++;
+                            return true;
+                        }
+                        else if (Time.time - startTimeFlood > floodRate && inFlood)
+                        {
+                            startTimeFlood = Time.time;
+                            gridPosition.x++;
+                            return true;
+                        }
                     }
-                    else if (Time.time - startTime > timeBeforeFlood)
+                }
+                else if (left)
+                {
+                    if (gridPosition.x - 1 >= 0 && (grid.grid[gridPosition.y][gridPosition.x - 1].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
                     {
-                        startTimeFlood = Time.time;
-                        inFlood = true;
-                        gridPosition.x++;
-                        return true;
+                        if (startTime == Time.time)
+                        {
+                            gridPosition.x--;
+                            return true;
+                        }
+                        else if (Time.time - startTime > timeBeforeFlood && !inFlood)
+                        {
+                            startTimeFlood = Time.time;
+                            inFlood = true;
+                            gridPosition.x--;
+                            return true;
+                        }
+                        else if (Time.time - startTimeFlood > floodRate && inFlood)
+                        {
+                            startTimeFlood = Time.time;
+                            gridPosition.x--;
+                            return true;
+                        }
                     }
-                    else if (Time.time - startTimeFlood > floodRate && inFlood)
+                }
+                else if (down)
+                {
+                    if (gridPosition.y - 1 >= 0 && (grid.grid[gridPosition.y - 1][gridPosition.x].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
                     {
-                        startTimeFlood = Time.time;
-                        gridPosition.x++;
-                        return true;
+                        if (startTime == Time.time)
+                        {
+                            gridPosition.y--;
+                            return true;
+                        }
+                        else if (Time.time - startTime > timeBeforeFlood && !inFlood)
+                        {
+                            startTimeFlood = Time.time;
+                            inFlood = true;
+                            gridPosition.y--;
+                            return true;
+                        }
+                        else if (Time.time - startTimeFlood > floodRate && inFlood)
+                        {
+                            startTimeFlood = Time.time;
+                            gridPosition.y--;
+                            return true;
+                        }
+                    }
+                }
+                else if (up)
+                {
+                    if (gridPosition.y + 1 < grid.height && (grid.grid[gridPosition.y + 1][gridPosition.x].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
+                    {
+                        if (startTime == Time.time)
+                        {
+                            gridPosition.y++;
+                            return true;
+                        }
+                        else if (Time.time - startTime > timeBeforeFlood && !inFlood)
+                        {
+                            startTimeFlood = Time.time;
+                            inFlood = true;
+                            gridPosition.y++;
+                            return true;
+                        }
+                        else if (Time.time - startTimeFlood > floodRate && inFlood)
+                        {
+                            startTimeFlood = Time.time;
+                            gridPosition.y++;
+                            return true;
+                        }
                     }
                 }
             }
-            else if(left)
-            {
-                if(gridPosition.x - 1 >= 0 && (grid.grid[gridPosition.y][gridPosition.x - 1].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
-                {
-                    if (startTime == Time.time)
-                    {
-                        gridPosition.x--;
-                        return true;
-                    }
-                    else if (Time.time - startTime > timeBeforeFlood)
-                    {
-                        startTimeFlood = Time.time;
-                        inFlood = true;
-                        gridPosition.x--;
-                        return true;
-                    }
-                    else if (Time.time - startTimeFlood > floodRate && inFlood)
-                    {
-                        startTimeFlood = Time.time;
-                        gridPosition.x--;
-                        return true;
-                    }
-                }
-            }
-            else if(down)
-            {
-                if(gridPosition.y -1 >= 0 && (grid.grid[gridPosition.y - 1][gridPosition.x].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
-                {
-                    if (startTime == Time.time)
-                    {
-                        gridPosition.y--;
-                        return true;
-                    }
-                    else if (Time.time - startTime > timeBeforeFlood)
-                    {
-                        startTimeFlood = Time.time;
-                        inFlood = true;
-                        gridPosition.y--;
-                        return true;
-                    }
-                    else if (Time.time - startTimeFlood > floodRate && inFlood)
-                    {
-                        startTimeFlood = Time.time;
-                        gridPosition.y--;
-                        return true;
-                    }
-                }
-            }
-            else if(up)
-            {
-                if(gridPosition.y + 1 < grid.height && (grid.grid[gridPosition.y + 1][gridPosition.x].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
-                {
-                    if (startTime == Time.time)
-                    {
-                        gridPosition.y++;
-                        return true;
-                    }
-                    else if (Time.time - startTime > timeBeforeFlood)
-                    {
-                        startTimeFlood = Time.time;
-                        inFlood = true;
-                        gridPosition.y++;
-                        return true;
-                    }
-                    else if (Time.time - startTimeFlood > floodRate && inFlood)
-                    {
-                        startTimeFlood = Time.time;
-                        gridPosition.y++;
-                        return true;
-                    }
-                }
-            }
-            //gridPosition corresponds to coordinates in grid list
-
             return false;
-
         }
 
         //  /!\
