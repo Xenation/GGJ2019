@@ -2,7 +2,7 @@
 using System.Text;
 
 namespace GGJ2019 {
-	public static class Extensions {
+	public static class Utility {
 
 		public static string Indent(this string str, int indent) {
 			StringBuilder sb = new StringBuilder(str);

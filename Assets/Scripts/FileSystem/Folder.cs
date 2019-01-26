@@ -7,8 +7,15 @@ namespace GGJ2019 {
 
 		private List<Element> elements = new List<Element>();
 
+		public bool isEmpty {
+			get {
+				return elements.Count == 0;
+			}
+		}
+
 		private void Awake() {
 			InitElements();
+			sprite = ExtensionManager.I.GetDefinition("").defaultIcon;
 		}
 
 		private void InitElements() {
@@ -25,6 +32,15 @@ namespace GGJ2019 {
 
 		public void RemoveElement(Element elem) {
 			elements.Remove(elem);
+		}
+
+		public Element GetElement(string name) {
+			foreach (Element elem in elements) {
+				if (elem.name.Equals(name)) {
+					return elem;
+				}
+			}
+			return null;
 		}
 
 		public override string ToString() {
