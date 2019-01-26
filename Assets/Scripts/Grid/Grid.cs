@@ -9,7 +9,7 @@ public class Grid : MonoBehaviour
     public Canvas canva;
     private float stepVertical, stepHorizontal;
 
-    private List<List<GridIcon>> grid;
+    public List<List<GridIcon>> grid;
 
     // Start is called before the first frame update
     void Start()
