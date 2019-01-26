@@ -41,7 +41,7 @@ public class GetBackground : MonoBehaviour
     {
         currentImagePath = imagePath;
         byte[] bytes = File.ReadAllBytes(imagePath);
-        Texture2D texture2D = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        Texture2D texture2D = new Texture2D(1, 1, TextureFormat.RGB24, false);
         texture2D.filterMode = FilterMode.Trilinear;
         ImageConversion.LoadImage(texture2D, bytes);
         backgroundGO.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture2D, new Rect(new Vector2(-5f, -5f), new Vector2(Screen.width, Screen.height)), Vector2.zero);
