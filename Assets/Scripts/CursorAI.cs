@@ -37,6 +37,10 @@ namespace GGJ2019
             PlayerMoved();
         }
 
+        /// <summary>
+        /// /////////////////////////////   ADD BORDERS
+        /// </summary>
+
         // Update is called once per frame
         void FixedUpdate()
         {
