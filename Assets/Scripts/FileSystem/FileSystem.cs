@@ -14,8 +14,11 @@ namespace GGJ2019 {
 		}
 
 		private void Start() {
+			// Debug
 			Debug.Log("FILESYSTEM:\n" + root.ToString());
-			Debug.Log(GetFile(desktopPath + "Edgy"));
+			File edgy = GetFile(desktopPath + "Edgy.exe");
+			Debug.Log(edgy);
+			Debug.Log(edgy.ext);
 		}
 
 		public Element GetElement(string path) {

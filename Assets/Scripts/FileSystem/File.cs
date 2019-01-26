@@ -5,7 +5,7 @@ namespace GGJ2019 {
 		
 		public string ext {
 			get {
-				return name.Substring(name.LastIndexOf('.'));
+				return name.Substring(name.LastIndexOf('.') + 1);
 			}
 		}
 

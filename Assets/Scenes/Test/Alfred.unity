@@ -418,6 +418,7 @@ GameObject:
   - component: {fileID: 1832812314}
   - component: {fileID: 1832812313}
   - component: {fileID: 1832812312}
+  - component: {fileID: 1832812315}
   m_Layer: 0
   m_Name: FileSystem
   m_TagString: Untagged
@@ -437,6 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcbc34c6fbc98d4eb26061b682f1caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desktopPath: C:/Users/You/Desktop/
 --- !u!114 &1832812313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,6 +466,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1832812315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832812311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7909c2d815413784a859c83a7cb3d885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  definitions:
+  - shortName: 
+    fullName: Folder
+    defaultIcon: {fileID: 0}
+  - shortName: txt
+    fullName: Text
+    defaultIcon: {fileID: 0}
+  - shortName: exe
+    fullName: Executable
+    defaultIcon: {fileID: 0}
+  - shortName: lnk
+    fullName: Shortcut
+    defaultIcon: {fileID: 0}
 --- !u!1001 &1901183443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -549,7 +576,7 @@ PrefabInstance:
     - target: {fileID: 5360347848754978778, guid: 460714ec2fa6a394683e8e340a8514bf,
         type: 3}
       propertyPath: m_Name
-      value: Edgy
+      value: Edgy.exe
       objectReference: {fileID: 0}
     - target: {fileID: 7433520482680141514, guid: 460714ec2fa6a394683e8e340a8514bf,
         type: 3}

@@ -2,6 +2,7 @@
 using Xenon;
 
 namespace GGJ2019 {
+	[System.Serializable]
 	public class ExtensionDefinition {
 		public string shortName;
 		public string fullName;
