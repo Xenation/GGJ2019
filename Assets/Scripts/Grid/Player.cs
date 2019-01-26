@@ -8,12 +8,14 @@ namespace GGJ2019
     {
         public Grid grid;
 
-        private Vector2 gridPosition;
+        private Vector2Int gridPosition;
 
         private bool    right   = false, 
                         left    = false,
                         up      = false,
                         down    = false;
+
+        private Vector2 Step;
 
         [HideInInspector] public bool playerMoved = false;
 
@@ -23,6 +25,7 @@ namespace GGJ2019
         void Start()
         {
             rectTransform = GetComponent<RectTransform>();
+            Step = grid.GetStep();
         }
 
         // Update is called once per frame
@@ -87,8 +90,35 @@ namespace GGJ2019
         private bool MovePlayer()
         {
             //Move player in direction acquired.
+            if(right)
+            {
+                if(grid.grid[gridPosition.x][gridPosition.y+1].isCrossable && gridPosition.y + 1 <= grid.width)
+                {
+                    gridPosition.y++;
+                }
+            }
+            else if(left)
+            {
+                if(grid.grid[gridPosition.x][gridPosition.y-1].isCrossable && gridPosition.y - 1 >= grid.width)
+                {
+                    gridPosition.y--;
+                }
+            }
+            else if(up)
+            {
+                if(grid.grid[gridPosition.x-1][gridPosition.y].isCrossable && gridPosition.x -1 >= grid.height)
+                {
+                    gridPosition.x--;
+                }
+            }
+            else if(down)
+            {
+                if(grid.grid[gridPosition.x+1][gridPosition.y].isCrossable && gridPosition.x + 1 <= grid.height)
+                {
+                    gridPosition.x++;
+                }
+            }
             //gridPosition corresponds to coordinates in grid list
-            
 
             return false;
 
