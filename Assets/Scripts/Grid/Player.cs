@@ -51,6 +51,7 @@ namespace GGJ2019
                 up = true;
                 down = false;
                 startTime = Time.time;
+                inFlood = false;
             }
             if (Input.GetButtonDown("Left"))
             {
@@ -59,6 +60,7 @@ namespace GGJ2019
                 up = false;
                 down = false;
                 startTime = Time.time;
+                inFlood = false;
             }
             if (Input.GetButtonDown("Down"))
             {
@@ -67,6 +69,7 @@ namespace GGJ2019
                 up = false;
                 down = true;
                 startTime = Time.time;
+                inFlood = false;
             }
             if (Input.GetButtonDown("Right"))
             {
@@ -75,6 +78,7 @@ namespace GGJ2019
                 up = false;
                 down = false;
                 startTime = Time.time;
+                inFlood = false;
             }
 
             if (Input.GetButtonUp("Right"))
@@ -104,6 +108,7 @@ namespace GGJ2019
 
 
             playerMoved = MovePlayer();
+
             Vector3 newPos = new Vector3((gridPosition.x + 1)* step.y, (gridPosition.y + 1) * step.x );
             rectTransform.position = newPos;
         }
@@ -124,7 +129,7 @@ namespace GGJ2019
                             gridPosition.x++;
                             return true;
                         }
-                        else if (Time.time - startTime > timeBeforeFlood)
+                        else if (Time.time - startTime > timeBeforeFlood && !inFlood)
                         {
                             startTimeFlood = Time.time;
                             inFlood = true;
@@ -148,7 +153,7 @@ namespace GGJ2019
                             gridPosition.x--;
                             return true;
                         }
-                        else if (Time.time - startTime > timeBeforeFlood)
+                        else if (Time.time - startTime > timeBeforeFlood && !inFlood)
                         {
                             startTimeFlood = Time.time;
                             inFlood = true;
@@ -172,7 +177,7 @@ namespace GGJ2019
                             gridPosition.y--;
                             return true;
                         }
-                        else if (Time.time - startTime > timeBeforeFlood)
+                        else if (Time.time - startTime > timeBeforeFlood && !inFlood)
                         {
                             startTimeFlood = Time.time;
                             inFlood = true;
@@ -196,7 +201,7 @@ namespace GGJ2019
                             gridPosition.y++;
                             return true;
                         }
-                        else if (Time.time - startTime > timeBeforeFlood)
+                        else if (Time.time - startTime > timeBeforeFlood && !inFlood)
                         {
                             startTimeFlood = Time.time;
                             inFlood = true;

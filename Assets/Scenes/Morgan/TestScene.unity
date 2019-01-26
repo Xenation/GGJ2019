@@ -293,8 +293,8 @@ MonoBehaviour:
   playerMoved: 0
   rectTransform: {fileID: 0}
   takenByCursor: 0
-  floodRate: 1
-  timeBeforeFlood: 1
+  floodRate: 0.05
+  timeBeforeFlood: 0.6
 --- !u!114 &443877095
 MonoBehaviour:
   m_ObjectHideFlags: 0
