@@ -15,7 +15,7 @@ namespace GGJ2019
                         up      = false,
                         down    = false;
 
-        private Vector2 Step;
+        private Vector2 step;
 
         [HideInInspector] public bool playerMoved = false;
 
@@ -25,7 +25,8 @@ namespace GGJ2019
         void Start()
         {
             rectTransform = GetComponent<RectTransform>();
-            Step = grid.GetStep();
+            step = grid.GetStep();
+            gridPosition = new Vector2Int(0,0);
         }
 
         // Update is called once per frame
@@ -34,28 +35,28 @@ namespace GGJ2019
             playerMoved = false;
 
             //Use input.GetKeyDown() as it makes simpler code for behavior
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 right = false;
                 left = false;
                 up = true;
                 down = false;
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.S))
             {
                 right = false;
                 left = true;
                 up = false;
                 down = false;
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.D))
             {
                 right = false;
                 left = false;
                 up = false;
                 down = true;
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 right = true;
                 left = false;
@@ -65,25 +66,26 @@ namespace GGJ2019
 
             if (Input.GetKeyUp(KeyCode.Z))
             {
-                up = false;
+                right = false;
             }
             if (Input.GetKeyUp(KeyCode.Q))
             {
-                left = false;
+                up = false;
             }
             if (Input.GetKeyUp(KeyCode.S))
             {
-                down = false;
+                left = false;
             }
             if (Input.GetKeyUp(KeyCode.D))
             {
-                right = false;
+                down = false;
             }
 
 
             playerMoved = MovePlayer();
-
-            rectTransform.position = (gridPosition + new Vector2(1, 1)) * grid.GetStep();
+            Vector3 newPos = new Vector3((gridPosition.x + 1)* step.y, (gridPosition.y + 1) * step.x );
+            rectTransform.position = newPos;
+            Debug.Log(gridPosition.x + " :   : " + gridPosition.y);
         }
 
         //Returns true if the player has moved
@@ -92,30 +94,34 @@ namespace GGJ2019
             //Move player in direction acquired.
             if(right)
             {
-                if(grid.grid[gridPosition.x][gridPosition.y+1].isCrossable && gridPosition.y + 1 <= grid.width)
+                if((gridPosition.y + 1) < grid.width && grid.grid[gridPosition.x][gridPosition.y + 1].isCrossable)
                 {
                     gridPosition.y++;
+                    return true;
                 }
             }
             else if(left)
             {
-                if(grid.grid[gridPosition.x][gridPosition.y-1].isCrossable && gridPosition.y - 1 >= grid.width)
+                if(gridPosition.y - 1 >= 0 && grid.grid[gridPosition.x][gridPosition.y - 1].isCrossable)
                 {
                     gridPosition.y--;
+                    return true;
                 }
             }
             else if(up)
             {
-                if(grid.grid[gridPosition.x-1][gridPosition.y].isCrossable && gridPosition.x -1 >= grid.height)
+                if(gridPosition.x -1 >= 0 && grid.grid[gridPosition.x - 1][gridPosition.y].isCrossable)
                 {
                     gridPosition.x--;
+                    return true;
                 }
             }
             else if(down)
             {
-                if(grid.grid[gridPosition.x+1][gridPosition.y].isCrossable && gridPosition.x + 1 <= grid.height)
+                if(gridPosition.x + 1 < grid.height && grid.grid[gridPosition.x + 1][gridPosition.y].isCrossable)
                 {
                     gridPosition.x++;
+                    return true;
                 }
             }
             //gridPosition corresponds to coordinates in grid list

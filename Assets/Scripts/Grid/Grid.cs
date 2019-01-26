@@ -15,10 +15,18 @@ public class Grid : MonoBehaviour
     void Start()
     {
         //Instanciate grid
-        grid = new List<List<GridIcon>>(height);
+        grid = new List<List<GridIcon>>();
         for(int i = 0; i < height; i++)
         {
-            grid[i] = new List<GridIcon>(width);
+            grid.Add(new List<GridIcon>());
+        }
+        for(int i = 0; i < height; i++)
+        {
+            //grid[i] = new List<GridIcon>();
+            for(int j = 0; j < width; j++)
+            {
+                grid[i].Add(new GridIcon());
+            }
         }
 
         //Step for positions of the icons
