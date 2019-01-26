@@ -561,7 +561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   edgy: {fileID: 443877094}
   bin: {fileID: 1921163561}
-  speed: 50
+  speed: 200
   playerSelected: {fileID: 5453522905989141287, guid: e103f23d4f55bb74a815688fb360de7c,
     type: 3}
 --- !u!1 &1921163561
