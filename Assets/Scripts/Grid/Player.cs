@@ -119,7 +119,7 @@ namespace GGJ2019
 				//Move player in direction acquired.
 				if (right && (gridPosition.x + 1) < grid.width)
                 {
-					destIcon = grid.grid[gridPosition.y][gridPosition.x + 1];
+					destIcon = grid.grid[gridPosition.x + 1, gridPosition.y];
 					if (destIcon == null || destIcon.isCrossable)
                     {
                         if (startTime == Time.time)
@@ -144,7 +144,7 @@ namespace GGJ2019
                 }
                 else if (left && gridPosition.x - 1 >= 0)
                 {
-					destIcon = grid.grid[gridPosition.y][gridPosition.x - 1];
+					destIcon = grid.grid[gridPosition.x - 1, gridPosition.y];
 					if (destIcon == null || destIcon.isCrossable)
                     {
                         if (startTime == Time.time)
@@ -169,7 +169,7 @@ namespace GGJ2019
                 }
                 else if (down && gridPosition.y - 1 >= 0)
                 {
-					destIcon = grid.grid[gridPosition.y - 1][gridPosition.x];
+					destIcon = grid.grid[gridPosition.x, gridPosition.y - 1];
 					if (destIcon == null || destIcon.isCrossable)
                     {
                         if (startTime == Time.time)
@@ -194,8 +194,8 @@ namespace GGJ2019
                 }
                 else if (up && gridPosition.y + 1 < grid.height)
                 {
-					destIcon = grid.grid[gridPosition.y + 1][gridPosition.x];
-					if (destIcon = null || destIcon.isCrossable)
+					destIcon = grid.grid[gridPosition.x, gridPosition.y + 1];
+					if (destIcon == null || destIcon.isCrossable)
                     {
                         if (startTime == Time.time)
                         {
