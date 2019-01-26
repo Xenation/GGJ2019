@@ -1,22 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GetBackground : MonoBehaviour
 {
-    public GameObject backgroundPrefab;
-
     const int SPI_GETDESKWALLPAPER = 0x73;
     const int SPIF_UPDATEINIFILE = 0x01;
     const int SPIF_SENDWININICHANGE = 0x02;
 
+    public Image image;
+    public Texture2D defaultBackground;
+
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
-
-    GameObject backgroundGO;
-    string currentImagePath;
 
     // Start is called before the first frame update
     void Start()
@@ -33,15 +31,37 @@ public class GetBackground : MonoBehaviour
             }
         }
         backgroundPath = backgroundPath.Remove(lastUsefulIndex);
-        backgroundGO = Instantiate(backgroundPrefab);
         byte[] bytes = File.ReadAllBytes(backgroundPath);
         Texture2D texture2D = new Texture2D(0, 0, TextureFormat.RGB24, false);
         texture2D.filterMode = FilterMode.Trilinear;
         ImageConversion.LoadImage(texture2D, bytes);
-        backgroundGO.GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture2D, new Rect(Vector2.zero, new Vector2(texture2D.width, texture2D.height)), Vector2.zero);
-        SpriteRenderer spriteRenderer = backgroundGO.GetComponent<SpriteRenderer>();
-        backgroundGO.transform.position = new Vector3 (-Camera.main.orthographicSize * Camera.main.aspect - spriteRenderer.bounds.min.x, -Camera.main.orthographicSize - spriteRenderer.bounds.min.y);
-        backgroundGO.transform.localScale = new Vector3 ((Camera.main.orthographicSize * Camera.main.aspect * 2) / (spriteRenderer.bounds.max.x - spriteRenderer.bounds.min.x), (Camera.main.orthographicSize * 2) / (spriteRenderer.bounds.max.y - spriteRenderer.bounds.min.y), 1.0f);
+        print(texture2D.width + ";" + texture2D.height);
+        if (texture2D.width == 8 || texture2D.height == 8)
+        {
+            image.sprite = Sprite.Create(defaultBackground, new Rect(Vector2.zero, new Vector2(defaultBackground.width, defaultBackground.height)), Vector2.zero);
+            float backgroundAspect = (float)defaultBackground.width / (float)defaultBackground.height;
+            if (backgroundAspect > Camera.main.aspect)
+            {
+                image.rectTransform.localScale = new Vector3(backgroundAspect / Camera.main.aspect, 1, 1);
+            }
+            else
+            {
+                image.rectTransform.localScale = new Vector3(1, Camera.main.aspect / backgroundAspect, 1);
+            }
+        }
+        else
+        {
+            image.sprite = Sprite.Create(texture2D, new Rect(Vector2.zero, new Vector2(texture2D.width, texture2D.height)), Vector2.zero);
+            float backgroundAspect = (float)texture2D.width / (float)texture2D.height;
+            if (backgroundAspect > Camera.main.aspect)
+            {
+                image.rectTransform.localScale = new Vector3(backgroundAspect / Camera.main.aspect, 1, 1);
+            }
+            else
+            {
+                image.rectTransform.localScale = new Vector3(1, Camera.main.aspect / backgroundAspect, 1);
+            }
+        }
     }
 
     // Update is called once per frame
