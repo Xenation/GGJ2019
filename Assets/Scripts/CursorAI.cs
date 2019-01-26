@@ -16,7 +16,8 @@ namespace GGJ2019
 
         private bool hasEdgy        = false;
         private bool prevHasEdgy    = false;
-        private bool openWindow     = false;
+
+        private List<Vector3> windowList;
 
         //Temporary placeholder for the size of the icon (player)
         // Add correct size
@@ -32,50 +33,77 @@ namespace GGJ2019
         {
             rectTransform = GetComponent<RectTransform>();
             cursorPosZ = rectTransform.position.z;
+            windowList = new List<Vector3>();
             PlayerMoved();
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (edgy.playerMoved)
+            if (windowList.Count == 0)
             {
-                PlayerMoved();
-            }
-            //Calculate direction to the player if the player has moved
-            if(prevHasEdgy != hasEdgy)
-            {
-                OnHasEdgy();
-            }
-
-            if (!hasEdgy)
-            {
-                //Cursor to player
-                if (!CursorOnDestination(edgy.rectTransform.position))
+                if (edgy.playerMoved)
                 {
-                    rectTransform.position += direction * Time.deltaTime;
+                    PlayerMoved();
+                }
+                //Calculate direction to the player if the player has moved
+                if (prevHasEdgy != hasEdgy)
+                {
+                    OnHasEdgy();
+                }
+
+                if (!hasEdgy)
+                {
+                    //Cursor to player
+                    if (!CursorOnDestination(edgy.rectTransform.position))
+                    {
+                        rectTransform.position += direction * Time.deltaTime;
+                    }
+                    else
+                    {
+                        //Has player
+                        hasEdgy = true;
+                        edgy.takenByCursor = true;
+                        playerSelectedInstance = Instantiate(playerSelected, rectTransform.position - (Vector3.down * IconSize), Quaternion.identity, rectTransform);
+                        playerSelectedInstance.transform.localPosition = Vector3.down * IconSize;
+                    }
                 }
                 else
                 {
-                    //Has player
-                    hasEdgy = true;
-                    edgy.takenByCursor = true;
-                    playerSelectedInstance = Instantiate(playerSelected, rectTransform.position - (Vector3.down * IconSize), Quaternion.identity, rectTransform);
-                    playerSelectedInstance.transform.localPosition = Vector3.down * IconSize;
+                    //Brings player to bin
+                    if (!CursorOnDestination(bin.GetComponent<RectTransform>().position))
+                    {
+                        rectTransform.position += direction * Time.deltaTime;
+                    }
+                    else
+                    {
+                        //Is on bin
+                        Destroy(playerSelectedInstance);
+                    }
                 }
             }
             else
             {
-                //Brings player to bin
-                if (!CursorOnDestination(bin.GetComponent<RectTransform>().position))
+                if (!CursorOnDestination(windowList[windowList.Count - 1]))
                 {
+                    windowList.RemoveAt(windowList.Count - 1);
                     rectTransform.position += direction * Time.deltaTime;
+                    /////////////////////////////////////
+                    ///CALL FUNCTION TO CLOSE WINDOW ///
+                    ///////////////////////////////////
                 }
                 else
                 {
-                    //Is on bin
-                    Destroy(playerSelectedInstance);
+                    if(windowList.Count > 0)
+                    {
+                        ChangeCursorDirection(windowList[windowList.Count - 1]);
+                    }
+                    else
+                    {
+                        ChangeCursorDirection(edgy.rectTransform.position);
+                    }
                 }
+               
             }
         }
 
@@ -126,7 +154,11 @@ namespace GGJ2019
                  && rectTransform.position.y > destination.y - IconSize);
         }
 
-
+        public void addToWindowList(Vector3 dest)
+        {
+            windowList.Add(dest);
+            ChangeCursorDirection(dest);
+        }
     }
 
 }
