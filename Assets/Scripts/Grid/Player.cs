@@ -36,6 +36,8 @@ namespace GGJ2019
         //true = right, false = left
         private bool RightLeft;
         public bool escaped;
+        public GameObject Arrow_Left;
+        public GameObject Arrow_Right;
 
         private AudioSource errorSound;
 
@@ -155,6 +157,10 @@ namespace GGJ2019
                             return true;
                         }
                     }
+                    else if (destIcon.isInteractable)
+                    {
+                        //INTERACT
+                    }
                     else
                     {
                         errorSound.Play();
@@ -184,6 +190,10 @@ namespace GGJ2019
                             gridPosition.x--;
                             return true;
                         }
+                    }
+                    else if (destIcon.isInteractable)
+                    {
+                        //INTERACT
                     }
                     else
                     {
@@ -215,6 +225,10 @@ namespace GGJ2019
                             return true;
                         }
                     }
+                    else if (destIcon.isInteractable)
+                    {
+                        //INTERACT
+                    }
                     else
                     {
                         down = false;
@@ -245,6 +259,10 @@ namespace GGJ2019
                             return true;
                         }
                     }
+                    else if (destIcon.isInteractable)
+                    {
+                        //INTERACT
+                    }
                     else
                     {
                         up = false;
@@ -269,12 +287,19 @@ namespace GGJ2019
                     takenByCursor = false;
                     escaped = true;
                     NumberArrow = 0;
+                    RightLeft = false;
+                    Arrow_Left.SetActive(false);
+                    Arrow_Right.SetActive(false);
+                    Debug.Log(escaped);
                 }
                else if(Input.GetButtonDown("Right"))
                 {
                     if(RightLeft)
                     {
                         NumberArrow++;
+                        RightLeft = !RightLeft;
+                        Arrow_Left.SetActive(false);
+                        Arrow_Right.SetActive(true);
                     }
                 }
                else if(Input.GetButtonDown("Left"))
@@ -282,7 +307,14 @@ namespace GGJ2019
                     if(!RightLeft)
                     {
                         NumberArrow++;
+                        RightLeft = !RightLeft;
+                        Arrow_Left.SetActive(true);
+                        Arrow_Right.SetActive(false);
                     }
+                }
+               else if(NumberArrow == 0)
+                {
+                    Arrow_Right.SetActive(true);
                 }
             }
             return false;

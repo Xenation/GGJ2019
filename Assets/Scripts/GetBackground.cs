@@ -37,7 +37,6 @@ public class GetBackground : MonoBehaviour
         Texture2D texture2D = new Texture2D(0, 0, TextureFormat.RGB24, false);
         texture2D.filterMode = FilterMode.Trilinear;
         ImageConversion.LoadImage(texture2D, bytes);
-        print(texture2D.width + ";" + texture2D.height);
         if (texture2D.width == 8 || texture2D.height == 8)
         {
             image.sprite = Sprite.Create(defaultBackground, new Rect(Vector2.zero, new Vector2(defaultBackground.width, defaultBackground.height)), Vector2.zero);
