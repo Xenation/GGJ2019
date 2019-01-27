@@ -274,6 +274,7 @@ namespace GGJ2019
                     RightLeft = false;
                     Arrow_Left.SetActive(false);
                     Arrow_Right.SetActive(false);
+                    Debug.Log(escaped);
                 }
                else if(Input.GetButtonDown("Right"))
                 {

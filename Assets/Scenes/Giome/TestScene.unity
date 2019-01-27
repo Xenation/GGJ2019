@@ -297,7 +297,8 @@ MonoBehaviour:
   timeBeforeFlood: 0.6
   NumberToEscape: 5
   escaped: 0
-  Arrows: {fileID: 486191143}
+  Arrow_Left: {fileID: 1486202825}
+  Arrow_Right: {fileID: 1337072191}
 --- !u!114 &443877095
 MonoBehaviour:
   m_ObjectHideFlags: 0

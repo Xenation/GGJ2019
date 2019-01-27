@@ -98,11 +98,6 @@ namespace GGJ2019
                     if (!CursorOnDestination())
                     {
                         rectTransform.position += direction * Time.deltaTime;
-                        if(edgy.escaped)
-                        {
-                            hasEdgy = false;
-                            Destroy(playerSelectedInstance);
-                        }
                     }
                     else
                     {
@@ -195,6 +190,11 @@ namespace GGJ2019
             {
                 rectTransform.position = new Vector3(rectTransform.position.x, Screen.height, rectTransform.position.z);
             }
+            if (edgy.escaped)
+            {
+                hasEdgy = false;
+                Destroy(playerSelectedInstance);
+            }
         }
 
         /******************************
@@ -234,6 +234,7 @@ namespace GGJ2019
             {
                 ChangeCursorDirection(edgy.rectTransform.position);
             }
+
         }
 
         //Checks if the cursor is on edgy
