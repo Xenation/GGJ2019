@@ -6,7 +6,7 @@ namespace GGJ2019
 {
     public class Player : MonoBehaviour
     {
-        public Grid grid;
+        public IconGrid grid;
 
         private Vector2Int gridPosition;
 
@@ -15,11 +15,9 @@ namespace GGJ2019
                         up      = false,
                         down    = false;
 
-        private Vector2 step;
+        [HideInInspector] public bool playerMoved = false;
 
-        [HideInInspector]public bool playerMoved = false;
-
-        [HideInInspector]public RectTransform rectTransform;
+        [HideInInspector] public RectTransform rectTransform;
 
         [HideInInspector] public bool takenByCursor = false;
 
@@ -30,11 +28,17 @@ namespace GGJ2019
         public float timeBeforeFlood = 1;
         bool inFlood = false;
 
+        private int Times_Gotten = 1;
+        public int NumberToEscape = 5;
+        private int NumberArrow = 0;
+        //true = right, false = left
+        private bool RightLeft;
+        public bool escaped;
+
         // Start is called before the first frame update
         void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
-            step = grid.GetStep();
             gridPosition = new Vector2Int(0,0);
         }
 
@@ -108,8 +112,7 @@ namespace GGJ2019
 
 
             playerMoved = MovePlayer();
-
-            Vector3 newPos = new Vector3((gridPosition.x + 1)* step.y, (gridPosition.y + 1) * step.x );
+			Vector3 newPos = grid.GetCanvasPos(gridPosition);
             rectTransform.position = newPos;
         }
 
@@ -119,10 +122,14 @@ namespace GGJ2019
             //check if player is not taken by the cursor
             if (!takenByCursor)
             {
-                //Move player in direction acquired.
-                if (right)
+				GridIcon destIcon;
+                //reset escape
+                escaped = false;
+				//Move player in direction acquired.
+				if (right && (gridPosition.x + 1) < grid.width)
                 {
-                    if ((gridPosition.x + 1) < grid.width && (grid.grid[gridPosition.y][gridPosition.x + 1].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
+					destIcon = grid.grid[gridPosition.x + 1, gridPosition.y];
+					if (destIcon == null || destIcon.isCrossable)
                     {
                         if (startTime == Time.time)
                         {
@@ -144,9 +151,10 @@ namespace GGJ2019
                         }
                     }
                 }
-                else if (left)
+                else if (left && gridPosition.x - 1 >= 0)
                 {
-                    if (gridPosition.x - 1 >= 0 && (grid.grid[gridPosition.y][gridPosition.x - 1].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
+					destIcon = grid.grid[gridPosition.x - 1, gridPosition.y];
+					if (destIcon == null || destIcon.isCrossable)
                     {
                         if (startTime == Time.time)
                         {
@@ -168,9 +176,10 @@ namespace GGJ2019
                         }
                     }
                 }
-                else if (down)
+                else if (down && gridPosition.y - 1 >= 0)
                 {
-                    if (gridPosition.y - 1 >= 0 && (grid.grid[gridPosition.y - 1][gridPosition.x].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
+					destIcon = grid.grid[gridPosition.x, gridPosition.y - 1];
+					if (destIcon == null || destIcon.isCrossable)
                     {
                         if (startTime == Time.time)
                         {
@@ -192,9 +201,10 @@ namespace GGJ2019
                         }
                     }
                 }
-                else if (up)
+                else if (up && gridPosition.y + 1 < grid.height)
                 {
-                    if (gridPosition.y + 1 < grid.height && (grid.grid[gridPosition.y + 1][gridPosition.x].isCrossable || grid.grid[gridPosition.y][gridPosition.x + 1] == null))
+					destIcon = grid.grid[gridPosition.x, gridPosition.y + 1];
+					if (destIcon == null || destIcon.isCrossable)
                     {
                         if (startTime == Time.time)
                         {
@@ -214,6 +224,31 @@ namespace GGJ2019
                             gridPosition.y++;
                             return true;
                         }
+                    }
+                }
+            }
+            //Escape the cursor minigame
+            else
+            {
+               if(NumberArrow == NumberToEscape * Times_Gotten)
+                {
+                    Times_Gotten++;
+                    takenByCursor = false;
+                    escaped = true;
+                    NumberArrow = 0;
+                }
+               else if(Input.GetButtonDown("Right"))
+                {
+                    if(RightLeft)
+                    {
+                        NumberArrow++;
+                    }
+                }
+               else if(Input.GetButtonDown("Left"))
+                {
+                    if(!RightLeft)
+                    {
+                        NumberArrow++;
                     }
                 }
             }
