@@ -153,6 +153,10 @@ namespace GGJ2019
                             return true;
                         }
                     }
+                    else if (destIcon.isInteractable)
+                    {
+                        //INTERACT
+                    }
                     else
                     {
                         errorSound.Play();
@@ -182,6 +186,10 @@ namespace GGJ2019
                             gridPosition.x--;
                             return true;
                         }
+                    }
+                    else if (destIcon.isInteractable)
+                    {
+                        //INTERACT
                     }
                     else
                     {
@@ -213,6 +221,10 @@ namespace GGJ2019
                             return true;
                         }
                     }
+                    else if (destIcon.isInteractable)
+                    {
+                        //INTERACT
+                    }
                     else
                     {
                         down = false;
@@ -242,6 +254,10 @@ namespace GGJ2019
                             gridPosition.y++;
                             return true;
                         }
+                    }
+                    else if (destIcon.isInteractable)
+                    {
+                        //INTERACT
                     }
                     else
                     {
