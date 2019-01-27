@@ -17,7 +17,7 @@ namespace GGJ2019
 
         [HideInInspector] public bool playerMoved = false;
 
-        [HideInInspector]public RectTransform rectTransform;
+        [HideInInspector] public RectTransform rectTransform;
 
         [HideInInspector] public bool takenByCursor = false;
 
@@ -27,6 +27,13 @@ namespace GGJ2019
         public float floodRate = 1;
         public float timeBeforeFlood = 1;
         bool inFlood = false;
+
+        private int Times_Gotten = 1;
+        public int NumberToEscape = 5;
+        private int NumberArrow = 0;
+        //true = right, false = left
+        private bool RightLeft;
+        public bool escaped;
 
         // Start is called before the first frame update
         void Awake()
@@ -116,6 +123,8 @@ namespace GGJ2019
             if (!takenByCursor)
             {
 				GridIcon destIcon;
+                //reset escape
+                escaped = false;
 				//Move player in direction acquired.
 				if (right && (gridPosition.x + 1) < grid.width)
                 {
@@ -215,6 +224,31 @@ namespace GGJ2019
                             gridPosition.y++;
                             return true;
                         }
+                    }
+                }
+            }
+            //Escape the cursor minigame
+            else
+            {
+               if(NumberArrow == NumberToEscape * Times_Gotten)
+                {
+                    Times_Gotten++;
+                    takenByCursor = false;
+                    escaped = true;
+                    NumberArrow = 0;
+                }
+               else if(Input.GetButtonDown("Right"))
+                {
+                    if(RightLeft)
+                    {
+                        NumberArrow++;
+                    }
+                }
+               else if(Input.GetButtonDown("Left"))
+                {
+                    if(!RightLeft)
+                    {
+                        NumberArrow++;
                     }
                 }
             }
