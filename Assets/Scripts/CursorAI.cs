@@ -177,7 +177,7 @@ namespace GGJ2019
             {
                 rectTransform.position = new Vector3(0, rectTransform.position.y, rectTransform.position.z);
             }
-            else if (rectTransform.position.x > Screen.height)
+            else if (rectTransform.position.x > Screen.width)
             {
                 rectTransform.position = new Vector3(Screen.height, rectTransform.position.y, rectTransform.position.z);
             }
