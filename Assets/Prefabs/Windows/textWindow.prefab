@@ -52,11 +52,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   possibleSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: a50d43ccbb28c714b8c28d8ee9c6c384, type: 3}
+  - {fileID: 21300000, guid: 28ae28e8b1c3cb2439893ce9ab023ed4, type: 3}
+  - {fileID: 21300000, guid: 9055b3b6e36a2a24ca8123f6debb1bd5, type: 3}
+  - {fileID: 21300000, guid: ef5e1b71c20cbbd4292e215fe32d363c, type: 3}
+  - {fileID: 21300000, guid: 563b4121a5f82444dbf8829b773e4e8c, type: 3}
+  - {fileID: 21300000, guid: f923fb341c49455459cc8a0ca3ad90f4, type: 3}
+  - {fileID: 21300000, guid: 8bf27513ede202f4e945b7c5193302dc, type: 3}
+  - {fileID: 21300000, guid: 712956bafff0a944998c83d034f98c14, type: 3}
+  - {fileID: 21300000, guid: e4b138aee15fd72419d2c7bd85847b1f, type: 3}
+  - {fileID: 21300000, guid: 02a021c94f21a2341a14df586df884dc, type: 3}
 --- !u!222 &195675164913274818
 CanvasRenderer:
   m_ObjectHideFlags: 0
