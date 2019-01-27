@@ -18,7 +18,7 @@ namespace GGJ2019 {
 		public void OpenWindow(GridIcon icon) {
 			GameObject go = null;
 			if (icon.isFolder) {
-				go = Instantiate(availableFolderWindows[Random.Range(0, availableFolderWindows.Length)].gameObject, transform);
+				go = Instantiate(availableFolderWindows[Random.Range(0, availableFolderWindows.Length)].gameObject, frontWindows);
 				FolderWindow foldWin = go.GetComponent<FolderWindow>();
 				windowStack.Push(foldWin);
 			} else {

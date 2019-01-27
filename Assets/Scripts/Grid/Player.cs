@@ -45,7 +45,7 @@ namespace GGJ2019
         void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
-            gridPosition = new Vector2Int(0,0);
+            gridPosition = new Vector2Int(1, 1);
             errorSound = GetComponent<AudioSource>();
         }
 
