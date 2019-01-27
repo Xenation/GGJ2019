@@ -17,7 +17,7 @@ namespace GGJ2019
 
         [HideInInspector] public bool playerMoved = false;
 
-        [HideInInspector]public RectTransform rectTransform;
+        [HideInInspector] public RectTransform rectTransform;
 
         [HideInInspector] public bool takenByCursor = false;
 
