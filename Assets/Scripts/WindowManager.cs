@@ -9,6 +9,7 @@ namespace GGJ2019 {
 		public ImageWindow imgWindow;
 		public ImageWindow webWindow;
 		public ImageWindow textWindow;
+		public ImageWindow pdfWindow;
 
 		private Stack<Window> windowStack = new Stack<Window>();
 
@@ -31,6 +32,9 @@ namespace GGJ2019 {
 						break;
 					case "txt":
 						go = Instantiate(textWindow.gameObject, transform);
+						break;
+					case "pdf":
+						go = Instantiate(pdfWindow.gameObject, transform);
 						break;
 				}
 				imgWin = go?.GetComponent<ImageWindow>();
