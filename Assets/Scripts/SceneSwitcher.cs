@@ -10,7 +10,7 @@ public class SceneSwitcher : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadScene("TestScene");
+            SceneManager.LoadScene("Game");
         }
     }
 }

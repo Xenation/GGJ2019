@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Test/Alfred.unity
-    guid: f06442cdde812804b97c301aa601e603
+    path: Assets/Scenes/Paul/Menu.unity
+    guid: 374903afca9fa104b939839f5e561a1d
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: c955ae5845f067e40b33683cf877da55
+  - enabled: 1
+    path: Assets/Scenes/Paul/end2.unity
+    guid: e53cb09e96d6f0d4b8d8838d898a2811
   m_configObjects: {}

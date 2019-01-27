@@ -87,7 +87,7 @@ namespace GGJ2019
                         
                         //Is on bin
                         Destroy(playerSelectedInstance);
-                        SceneManager.LoadScene("End2");
+                        SceneManager.LoadScene("end2");
                     }
                 }
             }
