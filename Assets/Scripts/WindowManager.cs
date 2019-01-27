@@ -49,7 +49,11 @@ namespace GGJ2019 {
 		}
 
 		public Window GetTopWindow() {
-			return windowStack.Peek();
+			try {
+				return windowStack.Peek();
+			} catch (System.InvalidOperationException e) {
+				return null;
+			}
 		}
 
 		public Vector2 GetTopWindowClosePosition() {
