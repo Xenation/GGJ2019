@@ -39,7 +39,7 @@ namespace GGJ2019 {
 		}
 
 		public void CloseTopWindow() {
-			Destroy(windowStack.Pop());
+			Destroy(windowStack.Pop().gameObject);
 		}
 
 		public bool isPlayerOnTopMostWindow() {
