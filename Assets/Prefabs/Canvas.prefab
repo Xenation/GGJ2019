@@ -237,6 +237,8 @@ MonoBehaviour:
   takenByCursor: 0
   floodRate: 0.02
   timeBeforeFlood: 0.6
+  NumberToEscape: 5
+  escaped: 0
 --- !u!222 &4073813437376210349
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -287,6 +289,7 @@ GameObject:
   - component: {fileID: 4073813437816682734}
   - component: {fileID: 4073813437816682705}
   - component: {fileID: 4073813437816682733}
+  - component: {fileID: 6096520064781781359}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -394,6 +397,30 @@ MonoBehaviour:
   width: 12
   canva: {fileID: 4073813437816682735}
   gridParent: {fileID: 7544162945113988599}
+--- !u!114 &6096520064781781359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4073813437816682704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 975fed16706684a488c572c06799e518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableFolderWindows:
+  - {fileID: 3162851302983887620, guid: 0a388fbb1be5bda44a9f14f21eb18a5a, type: 3}
+  - {fileID: 3162851302983887620, guid: 631ad5e9f9f86b44c96b60e522802343, type: 3}
+  - {fileID: 3162851302983887620, guid: cf526a03c0d42c049bea3b83681ed762, type: 3}
+  - {fileID: 3162851302983887620, guid: 06c637d63fd4fbf49a463be4af6a29ca, type: 3}
+  - {fileID: 3162851302983887620, guid: 54e1a253d03d134469803ec62de5dca4, type: 3}
+  imgWindow: {fileID: 1601935165565702169, guid: 888e341539a027f41b67e2f72829e3d3,
+    type: 3}
+  webWindow: {fileID: 6115775336213740317, guid: 1b29b4421dcf14840a174269e3a82241,
+    type: 3}
+  textWindow: {fileID: 2575836957090677755, guid: afd32c137bca48b47a20887aab303a52,
+    type: 3}
 --- !u!1 &4073813438067998662
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,6 +555,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 7525300445352843133}
   defaultBackground: {fileID: 2800000, guid: 0efce3e9b444b144d92e7f9d907f2984, type: 3}
+  datetimeText: {fileID: 0}
+  timeText: {fileID: 0}
 --- !u!114 &7525300445352843133
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -300,32 +300,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d64e9dcd2c312c04a854868c10bee889, type: 3}
---- !u!1 &176509297 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4073813437816682704, guid: d64e9dcd2c312c04a854868c10bee889,
-    type: 3}
-  m_PrefabInstance: {fileID: 176509296}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &176509299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176509297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 975fed16706684a488c572c06799e518, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  availableFolderWindows:
-  - {fileID: 0}
-  imgWindow: {fileID: 1601935165565702169, guid: 888e341539a027f41b67e2f72829e3d3,
-    type: 3}
-  webWindow: {fileID: 6115775336213740317, guid: 1b29b4421dcf14840a174269e3a82241,
-    type: 3}
-  textWindow: {fileID: 2575836957090677755, guid: afd32c137bca48b47a20887aab303a52,
-    type: 3}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,6 +498,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 455320190680545907, guid: 1072833cb3bd8ee4f996a2790dca9e9f,
+        type: 3}
+      propertyPath: isFolder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1072833cb3bd8ee4f996a2790dca9e9f, type: 3}
