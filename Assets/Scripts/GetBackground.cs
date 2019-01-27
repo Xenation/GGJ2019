@@ -12,6 +12,8 @@ public class GetBackground : MonoBehaviour
 
     public Image image;
     public Texture2D defaultBackground;
+    public Text datetimeText;
+    public Text timeText;
 
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
@@ -67,6 +69,7 @@ public class GetBackground : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ;
+        datetimeText.text = System.DateTime.Now.ToShortDateString();
+        timeText.text = System.DateTime.Now.ToShortTimeString();
     }
 }
