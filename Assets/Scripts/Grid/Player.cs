@@ -30,11 +30,21 @@ namespace GGJ2019
         public float timeBeforeFlood = 1;
         bool inFlood = false;
 
+        private int Times_Gotten = 1;
+        public int NumberToEscape = 5;
+        private int NumberArrow = 0;
+        //true = right, false = left
+        private bool RightLeft;
+        public bool escaped;
+
+        private AudioSource errorSound;
+
         // Start is called before the first frame update
         void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
             gridPosition = new Vector2Int(0,0);
+            errorSound = GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
@@ -118,6 +128,8 @@ namespace GGJ2019
             if (!takenByCursor)
             {
 				GridIcon destIcon;
+                //reset escape
+                escaped = false;
 				//Move player in direction acquired.
 				if (right && (gridPosition.x + 1) < grid.width)
                 {
@@ -142,6 +154,11 @@ namespace GGJ2019
                             gridPosition.x++;
                             return true;
                         }
+                    }
+                    else
+                    {
+                        errorSound.Play();
+                        right = false;
                     }
                 }
                 else if (left && gridPosition.x - 1 >= 0)
@@ -168,6 +185,11 @@ namespace GGJ2019
                             return true;
                         }
                     }
+                    else
+                    {
+                        left = false;
+                        errorSound.Play();
+                    }
                 }
                 else if (down && gridPosition.y - 1 >= 0)
                 {
@@ -193,6 +215,11 @@ namespace GGJ2019
                             return true;
                         }
                     }
+                    else
+                    {
+                        down = false;
+                        errorSound.Play();
+                    }
                 }
                 else if (up && gridPosition.y + 1 < grid.height)
                 {
@@ -217,6 +244,44 @@ namespace GGJ2019
                             gridPosition.y++;
                             return true;
                         }
+                    }
+                    else
+                    {
+                        up = false;
+                        errorSound.Play();
+                    }
+                }
+                else if(right || left || up || down)
+                {
+                    right = false;
+                    left = false;
+                    up = false;
+                    down = false;
+                    errorSound.Play();
+                }
+            }
+            //Escape the cursor minigame
+            else
+            {
+               if(NumberArrow == NumberToEscape * Times_Gotten)
+                {
+                    Times_Gotten++;
+                    takenByCursor = false;
+                    escaped = true;
+                    NumberArrow = 0;
+                }
+               else if(Input.GetButtonDown("Right"))
+                {
+                    if(RightLeft)
+                    {
+                        NumberArrow++;
+                    }
+                }
+               else if(Input.GetButtonDown("Left"))
+                {
+                    if(!RightLeft)
+                    {
+                        NumberArrow++;
                     }
                 }
             }
