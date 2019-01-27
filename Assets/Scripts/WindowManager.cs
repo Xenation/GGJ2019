@@ -13,6 +13,8 @@ namespace GGJ2019 {
 
 		private Stack<Window> windowStack = new Stack<Window>();
 
+		public Transform frontWindows;
+
 		public void OpenWindow(GridIcon icon) {
 			GameObject go = null;
 			if (icon.isFolder) {
@@ -25,16 +27,16 @@ namespace GGJ2019 {
 					case "png":
 					case "jpg":
 					case "bmp":
-						go = Instantiate(imgWindow.gameObject, transform);
+						go = Instantiate(imgWindow.gameObject, frontWindows);
 						break;
 					case "html":
-						go = Instantiate(webWindow.gameObject, transform);
+						go = Instantiate(webWindow.gameObject, frontWindows);
 						break;
 					case "txt":
-						go = Instantiate(textWindow.gameObject, transform);
+						go = Instantiate(textWindow.gameObject, frontWindows);
 						break;
 					case "pdf":
-						go = Instantiate(pdfWindow.gameObject, transform);
+						go = Instantiate(pdfWindow.gameObject, frontWindows);
 						break;
 				}
 				imgWin = go?.GetComponent<ImageWindow>();
