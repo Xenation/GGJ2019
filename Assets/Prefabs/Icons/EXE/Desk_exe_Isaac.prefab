@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8028345699347857913}
   - component: {fileID: 8028345699347857912}
   - component: {fileID: 8028345699347857911}
+  - component: {fileID: 8161050249241481893}
   m_Layer: 0
   m_Name: Desk_exe_Isaac
   m_TagString: Untagged
@@ -67,10 +68,24 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: ed8f54c390a58394d8791c888de839c8, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &8161050249241481893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8028345699347857910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f4595e10de3e643bb51ff2c7ac35c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCrossable: 1
+  element: {fileID: 0}
