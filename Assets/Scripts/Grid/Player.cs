@@ -28,6 +28,12 @@ namespace GGJ2019
         public float timeBeforeFlood = 1;
         bool inFlood = false;
 
+        private int Times_Gotten = 1;
+        private int NumberToEscape = 5;
+        private int NumberArrow = 0;
+        //true = right, false = left
+        private bool RightLeft;
+
         // Start is called before the first frame update
         void Awake()
         {
@@ -215,6 +221,29 @@ namespace GGJ2019
                             gridPosition.y++;
                             return true;
                         }
+                    }
+                }
+            }
+            //Escape the cursor minigame
+            else
+            {
+               if(NumberArrow == NumberToEscape * Times_Gotten)
+                {
+                    Times_Gotten++;
+                    takenByCursor = false;
+                }
+               else if(right)
+                {
+                    if(RightLeft)
+                    {
+                        NumberArrow++;
+                    }
+                }
+               else if(left)
+                {
+                    if(!RightLeft)
+                    {
+                        NumberArrow++;
                     }
                 }
             }
