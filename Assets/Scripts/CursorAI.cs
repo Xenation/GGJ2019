@@ -55,10 +55,7 @@ namespace GGJ2019
             windowList = new List<WindowInfo>();
             PlayerMoved();
         }
-
-        /// <summary>
-        /// /////////////////////////////   ADD BORDERS
-        /// </summary>
+        
 
         // Update is called once per frame
         void FixedUpdate()
@@ -109,6 +106,7 @@ namespace GGJ2019
             }
             //If there are existing windows
             // CHECK IF IT IS A FUCKIN FOLDER !!! :C
+            //If it as a folder, set it with containsPlayer returning false;
             else
             {
                 //Is NOT on player, and player is in top window
@@ -162,6 +160,29 @@ namespace GGJ2019
                         ChangeCursorDirection(windowList[windowList.Count - 1].closeDestination);
                     }
                 }
+            }
+
+            WindowBorders();
+        }
+
+        void WindowBorders()
+        {
+            if(rectTransform.position.x < 0)
+            {
+                rectTransform.position = new Vector3(0, rectTransform.position.y, rectTransform.position.z);
+            }
+            else if (rectTransform.position.x > Screen.height)
+            {
+                rectTransform.position = new Vector3(Screen.height, rectTransform.position.y, rectTransform.position.z);
+            }
+
+            if(rectTransform.position.y < 0)
+            {
+                rectTransform.position = new Vector3(rectTransform.position.x, 0, rectTransform.position.z);
+            }
+            else if (rectTransform.position.y > Screen.height)
+            {
+                rectTransform.position = new Vector3(rectTransform.position.x, Screen.height, rectTransform.position.z);
             }
         }
 
