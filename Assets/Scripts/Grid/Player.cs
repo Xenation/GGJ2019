@@ -159,7 +159,8 @@ namespace GGJ2019
                     }
                     else if (destIcon.isInteractable)
                     {
-                        //INTERACT
+						right = false;
+						WindowManager.I.OpenWindow(destIcon);
                     }
                     else
                     {
@@ -193,8 +194,9 @@ namespace GGJ2019
                     }
                     else if (destIcon.isInteractable)
                     {
-                        //INTERACT
-                    }
+						left = false;
+						WindowManager.I.OpenWindow(destIcon);
+					}
                     else
                     {
                         left = false;
@@ -227,8 +229,9 @@ namespace GGJ2019
                     }
                     else if (destIcon.isInteractable)
                     {
-                        //INTERACT
-                    }
+						down = false;
+						WindowManager.I.OpenWindow(destIcon);
+					}
                     else
                     {
                         down = false;
@@ -261,8 +264,9 @@ namespace GGJ2019
                     }
                     else if (destIcon.isInteractable)
                     {
-                        //INTERACT
-                    }
+						up = false;
+						WindowManager.I.OpenWindow(destIcon);
+					}
                     else
                     {
                         up = false;

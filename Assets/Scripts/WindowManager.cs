@@ -12,37 +12,34 @@ namespace GGJ2019 {
 
 		private Stack<Window> windowStack = new Stack<Window>();
 
-		public void OpenWindow(Element element) {
+		public void OpenWindow(GridIcon icon) {
 			GameObject go = null;
-			switch (element) {
-				case Folder folder:
-					go = Instantiate(availableFolderWindows[Random.Range(0, availableFolderWindows.Length)].gameObject, transform);
-					FolderWindow foldWin = go.GetComponent<FolderWindow>();
-					windowStack.Push(foldWin);
-					break;
-				case File file:
-					ImageWindow imgWin = null;
-					switch (file.ext) {
-						case "png":
-						case "jpg":
-						case "bmp":
-							go = Instantiate(imgWindow.gameObject, transform);
-							break;
-						case "html":
-							go = Instantiate(webWindow.gameObject, transform);
-							break;
-						case "txt":
-							go = Instantiate(textWindow.gameObject, transform);
-							break;
-					}
-					imgWin = go?.GetComponent<ImageWindow>();
-					windowStack.Push(imgWin);
-					break;
+			if (icon.isFolder) {
+				go = Instantiate(availableFolderWindows[Random.Range(0, availableFolderWindows.Length)].gameObject, transform);
+				FolderWindow foldWin = go.GetComponent<FolderWindow>();
+				windowStack.Push(foldWin);
+			} else {
+				ImageWindow imgWin = null;
+				switch (icon.ext) {
+					case "png":
+					case "jpg":
+					case "bmp":
+						go = Instantiate(imgWindow.gameObject, transform);
+						break;
+					case "html":
+						go = Instantiate(webWindow.gameObject, transform);
+						break;
+					case "txt":
+						go = Instantiate(textWindow.gameObject, transform);
+						break;
+				}
+				imgWin = go?.GetComponent<ImageWindow>();
+				windowStack.Push(imgWin);
 			}
 		}
 
 		public void CloseTopWindow() {
-			Destroy(windowStack.Pop());
+			Destroy(windowStack.Pop().gameObject);
 		}
 
 		public bool isPlayerOnTopMostWindow() {
@@ -52,7 +49,11 @@ namespace GGJ2019 {
 		}
 
 		public Window GetTopWindow() {
-			return windowStack.Peek();
+			try {
+				return windowStack.Peek();
+			} catch (System.InvalidOperationException e) {
+				return null;
+			}
 		}
 
 		public Vector2 GetTopWindowClosePosition() {
