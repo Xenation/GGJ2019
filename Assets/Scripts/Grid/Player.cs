@@ -239,12 +239,15 @@ namespace GGJ2019
                     escaped = true;
                     NumberArrow = 0;
                     RightLeft = false;
+                    Arrow_Left.SetActive(false);
+                    Arrow_Right.SetActive(false);
                 }
                else if(Input.GetButtonDown("Right"))
                 {
                     if(RightLeft)
                     {
                         NumberArrow++;
+                        RightLeft = !RightLeft;
                         Arrow_Left.SetActive(false);
                         Arrow_Right.SetActive(true);
                     }
@@ -254,9 +257,14 @@ namespace GGJ2019
                     if(!RightLeft)
                     {
                         NumberArrow++;
+                        RightLeft = !RightLeft;
                         Arrow_Left.SetActive(true);
                         Arrow_Right.SetActive(false);
                     }
+                }
+               else if(NumberArrow == 0)
+                {
+                    Arrow_Right.SetActive(true);
                 }
             }
             return false;
