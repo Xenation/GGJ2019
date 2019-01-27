@@ -34,6 +34,8 @@ namespace GGJ2019
         //true = right, false = left
         private bool RightLeft;
         public bool escaped;
+        public GameObject Arrow_Left;
+        public GameObject Arrow_Right;
 
         // Start is called before the first frame update
         void Awake()
@@ -236,12 +238,15 @@ namespace GGJ2019
                     takenByCursor = false;
                     escaped = true;
                     NumberArrow = 0;
+                    RightLeft = false;
                 }
                else if(Input.GetButtonDown("Right"))
                 {
                     if(RightLeft)
                     {
                         NumberArrow++;
+                        Arrow_Left.SetActive(false);
+                        Arrow_Right.SetActive(true);
                     }
                 }
                else if(Input.GetButtonDown("Left"))
@@ -249,6 +254,8 @@ namespace GGJ2019
                     if(!RightLeft)
                     {
                         NumberArrow++;
+                        Arrow_Left.SetActive(true);
+                        Arrow_Right.SetActive(false);
                     }
                 }
             }
