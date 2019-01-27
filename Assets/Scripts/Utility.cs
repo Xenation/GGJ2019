@@ -31,6 +31,18 @@ namespace GGJ2019 {
 			Vector2 actualCellSize = grid.cellSize + grid.spacing;
 			return new Vector2(actualCellSize.x * gridPos.x, actualCellSize.y * gridPos.y);
 		}
+		
+		public static Vector2 GetWorldMin(this RectTransform rectTransf) {
+			Vector3[] corners = new Vector3[4];
+			rectTransf.GetWorldCorners(corners);
+			return corners[0];
+		}
+
+		public static Vector2 GetWorldMax(this RectTransform rectTransf) {
+			Vector3[] corners = new Vector3[4];
+			rectTransf.GetWorldCorners(corners);
+			return corners[2];
+		}
 
 	}
 }
