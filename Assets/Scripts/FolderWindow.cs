@@ -25,7 +25,7 @@ namespace GGJ2019 {
 				}
 			}
 			// Placing new grid icons
-			foreach (RectTransform transf in rectTransform) {
+			foreach (RectTransform transf in iconsZone) {
 				GridIcon icon = transf.GetComponent<GridIcon>();
 				if (icon == null) continue;
 				Vector2Int gridPos = grid.GetGridPos(transf.position);
