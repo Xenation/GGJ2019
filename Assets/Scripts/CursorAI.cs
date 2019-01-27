@@ -94,6 +94,11 @@ namespace GGJ2019
                     if (!CursorOnDestination())
                     {
                         rectTransform.position += direction * Time.deltaTime;
+                        if(edgy.escaped)
+                        {
+                            hasEdgy = false;
+                            Destroy(playerSelectedInstance);
+                        }
                     }
                     else
                     {
@@ -101,6 +106,7 @@ namespace GGJ2019
 
                         //Is on bin
                         Destroy(playerSelectedInstance);
+                        //Add end!
                     }
                 }
             }
