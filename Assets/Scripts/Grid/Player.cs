@@ -157,15 +157,17 @@ namespace GGJ2019
                             return true;
                         }
                     }
-                    else if (destIcon.isInteractable)
+                    else if (destIcon.isInteractable && startTime == Time.time)
                     {
 						right = false;
 						WindowManager.I.OpenWindow(destIcon);
+                        return false;
                     }
-                    else
+                    else if(startTime == Time.time)
                     {
                         errorSound.Play();
                         right = false;
+                        return false;
                     }
                 }
                 else if (left && gridPosition.x - 1 >= 0)
@@ -192,15 +194,18 @@ namespace GGJ2019
                             return true;
                         }
                     }
-                    else if (destIcon.isInteractable)
+                    else if (destIcon.isInteractable && startTime == Time.time)
                     {
+                        Debug.Log("64");
 						left = false;
 						WindowManager.I.OpenWindow(destIcon);
-					}
-                    else
+                        return false;
+                    }
+                    else if(startTime == Time.time)
                     {
                         left = false;
                         errorSound.Play();
+                        return false;
                     }
                 }
                 else if (down && gridPosition.y - 1 >= 0)
@@ -227,15 +232,17 @@ namespace GGJ2019
                             return true;
                         }
                     }
-                    else if (destIcon.isInteractable)
+                    else if (destIcon.isInteractable && startTime == Time.time)
                     {
 						down = false;
 						WindowManager.I.OpenWindow(destIcon);
-					}
-                    else
+                        return false;
+                    }
+                    else if (startTime == Time.time)
                     {
                         down = false;
                         errorSound.Play();
+                        return false;
                     }
                 }
                 else if (up && gridPosition.y + 1 < grid.height)
@@ -262,15 +269,17 @@ namespace GGJ2019
                             return true;
                         }
                     }
-                    else if (destIcon.isInteractable)
+                    else if (destIcon.isInteractable && startTime == Time.time)
                     {
 						up = false;
 						WindowManager.I.OpenWindow(destIcon);
-					}
-                    else
+                        return false;
+                    }
+                    else if (startTime == Time.time)
                     {
                         up = false;
                         errorSound.Play();
+                        return false;
                     }
                 }
                 else if(right || left || up || down)
@@ -280,6 +289,7 @@ namespace GGJ2019
                     up = false;
                     down = false;
                     errorSound.Play();
+                    return false;
                 }
             }
             //Escape the cursor minigame
