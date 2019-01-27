@@ -13,6 +13,7 @@ namespace GGJ2019 {
 
 		public bool isFolder;
 		public string ext;
+		public bool isInteractable;
 		public Element element;
 
 	}
