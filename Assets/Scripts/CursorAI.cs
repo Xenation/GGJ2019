@@ -159,6 +159,10 @@ namespace GGJ2019
                                 ChangeCursorDirection(windowList[windowList.Count - 1].closeDestination);
                             }
                         }
+                        else
+                        {
+                            ChangeCursorDirection(edgy.rectTransform.position);
+                        }
 
                     }
                     else
