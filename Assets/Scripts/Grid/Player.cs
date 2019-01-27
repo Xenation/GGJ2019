@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Xenon;
 
 namespace GGJ2019
 {
-    public class Player : MonoBehaviour
+    public class Player : Singleton<Player>
     {
         public IconGrid grid;
 
-        private Vector2Int gridPosition;
+		private Vector2Int gridPosition;
+        public Vector2Int GridPos { get { return gridPosition; } }
 
         private bool    right   = false, 
                         left    = false,
@@ -34,6 +36,8 @@ namespace GGJ2019
         //true = right, false = left
         private bool RightLeft;
         public bool escaped;
+        public GameObject Arrow_Left;
+        public GameObject Arrow_Right;
 
         private AudioSource errorSound;
 
@@ -283,12 +287,19 @@ namespace GGJ2019
                     takenByCursor = false;
                     escaped = true;
                     NumberArrow = 0;
+                    RightLeft = false;
+                    Arrow_Left.SetActive(false);
+                    Arrow_Right.SetActive(false);
+                    Debug.Log(escaped);
                 }
                else if(Input.GetButtonDown("Right"))
                 {
                     if(RightLeft)
                     {
                         NumberArrow++;
+                        RightLeft = !RightLeft;
+                        Arrow_Left.SetActive(false);
+                        Arrow_Right.SetActive(true);
                     }
                 }
                else if(Input.GetButtonDown("Left"))
@@ -296,7 +307,14 @@ namespace GGJ2019
                     if(!RightLeft)
                     {
                         NumberArrow++;
+                        RightLeft = !RightLeft;
+                        Arrow_Left.SetActive(true);
+                        Arrow_Right.SetActive(false);
                     }
+                }
+               else if(NumberArrow == 0)
+                {
+                    Arrow_Right.SetActive(true);
                 }
             }
             return false;
