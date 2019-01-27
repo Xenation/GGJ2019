@@ -569,6 +569,7 @@ GameObject:
   - component: {fileID: 443877095}
   - component: {fileID: 443877094}
   - component: {fileID: 443877097}
+  - component: {fileID: 443877098}
   m_Layer: 5
   m_Name: Edgy
   m_TagString: Untagged
@@ -748,6 +749,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &443877098
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443877092}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 496ca48195c07cc4f8b470f4582f506a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &788396394
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,12 +1302,12 @@ PrefabInstance:
     - target: {fileID: 6258487640763622462, guid: 5b37bfe1b01c24a4ea04884f979ea537,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1920
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6258487640763622462, guid: 5b37bfe1b01c24a4ea04884f979ea537,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 75
+      value: -1005
       objectReference: {fileID: 0}
     - target: {fileID: 6258487640763622462, guid: 5b37bfe1b01c24a4ea04884f979ea537,
         type: 3}
@@ -1302,12 +1322,12 @@ PrefabInstance:
     - target: {fileID: 6258487640763622462, guid: 5b37bfe1b01c24a4ea04884f979ea537,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6258487640763622462, guid: 5b37bfe1b01c24a4ea04884f979ea537,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6258487640763622462, guid: 5b37bfe1b01c24a4ea04884f979ea537,
         type: 3}
