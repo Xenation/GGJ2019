@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Xenon;
 
 namespace GGJ2019
 {
-    public class Player : MonoBehaviour
+    public class Player : Singleton<Player>
     {
         public IconGrid grid;
 
-        private Vector2Int gridPosition;
+		private Vector2Int gridPosition;
+        public Vector2Int GridPos { get { return gridPosition; } }
 
         private bool    right   = false, 
                         left    = false,
