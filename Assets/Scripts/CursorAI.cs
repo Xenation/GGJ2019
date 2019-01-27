@@ -18,26 +18,6 @@ namespace GGJ2019
         private bool hasEdgy        = false;
         private bool prevHasEdgy    = false;
 
-        public class WindowInfo
-        {
-            public Element window;
-            public Vector3 closeDestination;
-
-            public WindowInfo(Element win, Vector3 closeDest)
-            {
-                window = win;
-                closeDestination = closeDest;
-            }
-
-            public bool ContainsPlayer()
-            {
-                //Replace by wtrue or false depending on position of player
-                return true;
-            }
-        }
-
-        private List<WindowInfo> windowList;
-
         //Temporary placeholder for the size of the icon (player)
         // Add correct size
         private float IconSize       = 5f;
@@ -54,7 +34,6 @@ namespace GGJ2019
         {
             rectTransform = GetComponent<RectTransform>();
             cursorPosZ = rectTransform.position.z;
-            windowList = new List<WindowInfo>();
             clickSound = GetComponent<AudioSource>();
             PlayerMoved();
         }
@@ -63,7 +42,9 @@ namespace GGJ2019
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (windowList.Count == 0)
+			Window win = WindowManager.I.GetTopWindow();
+			WindowManager winManager = WindowManager.I;
+			if (win == null)
             {
                 if (edgy.playerMoved)
                 {
@@ -115,7 +96,7 @@ namespace GGJ2019
             else
             {
                 //Is NOT on player, and player is in top window
-                if ((!CursorOnDestination() && windowList[windowList.Count-1].ContainsPlayer()))
+                if ((!CursorOnDestination() && winManager.isPlayerOnTopMostWindow()))
                 {
                     if(currentDestination == edgy.transform.position)
                     {
@@ -127,43 +108,44 @@ namespace GGJ2019
                     }
                 }
                 //is NOT on closeDestinationd and player is NOT in top window
-                else if (!CursorOnDestination() && !windowList[windowList.Count-1].ContainsPlayer())
+                else if (!CursorOnDestination() && !winManager.isPlayerOnTopMostWindow())
                 {
-                    if(currentDestination == windowList[windowList.Count - 1].closeDestination)
+                    if(currentDestination == (Vector3) winManager.GetTopWindowClosePosition())
                     {
                         rectTransform.position += direction * Time.deltaTime;
                     }
                     else
                     {
-                        ChangeCursorDirection(windowList[windowList.Count-1].closeDestination);
+                        ChangeCursorDirection(winManager.GetTopWindowClosePosition());
                     }
                 }
                 //is on closeDestination and player is NOT in top window
-                else if(CursorOnDestination() && !windowList[windowList.Count - 1].ContainsPlayer())
+                else if(CursorOnDestination() && !winManager.isPlayerOnTopMostWindow())
                 {
-                    if(currentDestination == windowList[windowList.Count - 1].closeDestination)
+                    if(currentDestination == (Vector3) winManager.GetTopWindowClosePosition())
                     {
                         //CLOSE WINDOW
-                        windowList.RemoveAt(windowList.Count - 1);
+						winManager.CloseTopWindow();
                         clickSound.Play();
+						win = winManager.GetTopWindow();
                         
                         //CHECK NEW DEST FOR CURSOR
-                        if(windowList.Count > 0)
+                        if(win != null)
                         {
-                            if (windowList[windowList.Count - 1].ContainsPlayer())
+                            if (winManager.isPlayerOnTopMostWindow())
                             {
                                 ChangeCursorDirection(edgy.rectTransform.position);
                             }
                             else
                             {
-                                ChangeCursorDirection(windowList[windowList.Count - 1].closeDestination);
+                                ChangeCursorDirection(winManager.GetTopWindowClosePosition());
                             }
                         }
 
                     }
                     else
                     {
-                        ChangeCursorDirection(windowList[windowList.Count - 1].closeDestination);
+                        ChangeCursorDirection(winManager.GetTopWindowClosePosition());
                     }
                 }
             }
@@ -246,16 +228,6 @@ namespace GGJ2019
                  && rectTransform.position.y > currentDestination.y - IconSize);
         }
 
-        /******************************
-         * Call everytime Window opens
-         * ---------------------------
-         * ***************************/
-        public void addToWindowList(Element window, Vector3 dest)
-        {
-            WindowInfo win = new WindowInfo(window, dest);
-            windowList.Add(win);
-            //ChangeCursorDirection(dest);
-        }
     }
 
 }

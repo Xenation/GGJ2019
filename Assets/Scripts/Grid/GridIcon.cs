@@ -11,6 +11,9 @@ namespace GGJ2019 {
 		//Tells if the current Icon is selected by the user
 		[System.NonSerialized] public bool isSelected = false;
 
+		public bool isFolder;
+		public string ext;
+		public bool isInteractable;
 		public Element element;
 
 	}
