@@ -29,10 +29,11 @@ namespace GGJ2019
         bool inFlood = false;
 
         private int Times_Gotten = 1;
-        private int NumberToEscape = 5;
+        public int NumberToEscape = 5;
         private int NumberArrow = 0;
         //true = right, false = left
         private bool RightLeft;
+        public bool escaped;
 
         // Start is called before the first frame update
         void Awake()
@@ -122,6 +123,8 @@ namespace GGJ2019
             if (!takenByCursor)
             {
 				GridIcon destIcon;
+                //reset escape
+                escaped = false;
 				//Move player in direction acquired.
 				if (right && (gridPosition.x + 1) < grid.width)
                 {
@@ -231,15 +234,17 @@ namespace GGJ2019
                 {
                     Times_Gotten++;
                     takenByCursor = false;
+                    escaped = true;
+                    NumberArrow = 0;
                 }
-               else if(right)
+               else if(Input.GetButtonDown("Right"))
                 {
                     if(RightLeft)
                     {
                         NumberArrow++;
                     }
                 }
-               else if(left)
+               else if(Input.GetButtonDown("Left"))
                 {
                     if(!RightLeft)
                     {

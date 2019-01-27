@@ -78,11 +78,17 @@ namespace GGJ2019
                     if (!CursorOnDestination(bin.GetComponent<RectTransform>().position))
                     {
                         rectTransform.position += direction * Time.deltaTime;
+                        if(edgy.escaped)
+                        {
+                            hasEdgy = false;
+                            Destroy(playerSelectedInstance);
+                        }
                     }
                     else
                     {
                         //Is on bin
                         Destroy(playerSelectedInstance);
+                        //Add end!
                     }
                 }
             }
