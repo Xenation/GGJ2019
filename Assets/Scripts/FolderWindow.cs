@@ -13,13 +13,15 @@ namespace GGJ2019 {
 			base.Awake();
 			grid = Player.I.grid;
 			iconsZone = rectTransform.Find("Icons").GetComponent<RectTransform>();
-			gridRect = new RectInt(grid.GetGridPos(iconsZone.rect.min), grid.GetGridPos(iconsZone.rect.max));
+			Vector2Int min = grid.GetGridPos(iconsZone.GetWorldMin());
+			Vector2Int max = grid.GetGridPos(iconsZone.GetWorldMax());
+			gridRect = new RectInt(min, max - min);
 			// Saving previous grid icons
 			previousIcons = new GridIcon[gridRect.size.x, gridRect.size.y];
 			for (int y = 0; y < gridRect.size.y; y++) {
 				for (int x = 0; x < gridRect.size.x; x++) {
 					previousIcons[x, y] = grid.grid[gridRect.x + x, gridRect.y + y];
-					previousIcons[x, y].gameObject.SetActive(false);
+					previousIcons[x, y]?.gameObject.SetActive(false);
 				}
 			}
 			// Placing new grid icons
@@ -39,7 +41,7 @@ namespace GGJ2019 {
 			for (int y = 0; y < gridRect.size.y; y++) {
 				for (int x = 0; x < gridRect.size.x; x++) {
 					grid.grid[gridRect.x + x, gridRect.y + y] = previousIcons[x, y];
-					previousIcons[x, y].gameObject.SetActive(true);
+					previousIcons[x, y]?.gameObject.SetActive(true);
 				}
 			}
 		}
