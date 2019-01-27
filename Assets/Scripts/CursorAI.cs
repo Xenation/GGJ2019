@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace GGJ2019
 {
@@ -86,7 +87,7 @@ namespace GGJ2019
                         
                         //Is on bin
                         Destroy(playerSelectedInstance);
-                        //Add end!
+                        SceneManager.LoadScene("End2");
                     }
                 }
             }

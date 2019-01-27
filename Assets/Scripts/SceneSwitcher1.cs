@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneSwitcher : MonoBehaviour
+public class SceneSwitcher1 : MonoBehaviour
 {
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadScene("TestScene");
+            SceneManager.LoadScene("Menu");
         }
     }
 }
