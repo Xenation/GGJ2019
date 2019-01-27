@@ -47,12 +47,15 @@ namespace GGJ2019
         public GameObject playerSelected;
         private GameObject playerSelectedInstance;
 
+        private AudioSource clickSound;
+
         // Start is called before the first frame update
         void Start()
         {
             rectTransform = GetComponent<RectTransform>();
             cursorPosZ = rectTransform.position.z;
             windowList = new List<WindowInfo>();
+            clickSound = GetComponent<AudioSource>();
             PlayerMoved();
         }
         
@@ -86,6 +89,7 @@ namespace GGJ2019
                         edgy.takenByCursor = true;
                         playerSelectedInstance = Instantiate(playerSelected, rectTransform.position - (Vector3.down * IconSize), Quaternion.identity, rectTransform);
                         playerSelectedInstance.transform.localPosition = Vector3.down * IconSize;
+                        clickSound.Play();
                     }
                 }
                 else
@@ -103,7 +107,7 @@ namespace GGJ2019
                     else
                     {
                         //Add someway for player to escape
-
+                        
                         //Is on bin
                         Destroy(playerSelectedInstance);
                         //Add end!
@@ -146,6 +150,7 @@ namespace GGJ2019
                     {
                         //CLOSE WINDOW
                         windowList.RemoveAt(windowList.Count - 1);
+                        clickSound.Play();
                         
                         //CHECK NEW DEST FOR CURSOR
                         if(windowList.Count > 0)

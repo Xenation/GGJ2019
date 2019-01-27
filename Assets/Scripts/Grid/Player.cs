@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Xenon;
 
 namespace GGJ2019
 {
-    public class Player : MonoBehaviour
+    public class Player : Singleton<Player>
     {
         public IconGrid grid;
 
-        private Vector2Int gridPosition;
+		private Vector2Int gridPosition;
+        public Vector2Int GridPos { get { return gridPosition; } }
 
         private bool    right   = false, 
                         left    = false,
@@ -35,11 +37,14 @@ namespace GGJ2019
         private bool RightLeft;
         public bool escaped;
 
+        private AudioSource errorSound;
+
         // Start is called before the first frame update
         void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
             gridPosition = new Vector2Int(0,0);
+            errorSound = GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
@@ -150,6 +155,11 @@ namespace GGJ2019
                             return true;
                         }
                     }
+                    else
+                    {
+                        errorSound.Play();
+                        right = false;
+                    }
                 }
                 else if (left && gridPosition.x - 1 >= 0)
                 {
@@ -174,6 +184,11 @@ namespace GGJ2019
                             gridPosition.x--;
                             return true;
                         }
+                    }
+                    else
+                    {
+                        left = false;
+                        errorSound.Play();
                     }
                 }
                 else if (down && gridPosition.y - 1 >= 0)
@@ -200,6 +215,11 @@ namespace GGJ2019
                             return true;
                         }
                     }
+                    else
+                    {
+                        down = false;
+                        errorSound.Play();
+                    }
                 }
                 else if (up && gridPosition.y + 1 < grid.height)
                 {
@@ -225,6 +245,19 @@ namespace GGJ2019
                             return true;
                         }
                     }
+                    else
+                    {
+                        up = false;
+                        errorSound.Play();
+                    }
+                }
+                else if(right || left || up || down)
+                {
+                    right = false;
+                    left = false;
+                    up = false;
+                    down = false;
+                    errorSound.Play();
                 }
             }
             //Escape the cursor minigame
