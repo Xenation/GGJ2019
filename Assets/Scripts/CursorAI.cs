@@ -141,6 +141,10 @@ namespace GGJ2019
                                 ChangeCursorDirection(winManager.GetTopWindowClosePosition());
                             }
                         }
+                        else
+                        {
+                            ChangeCursorDirection(edgy.rectTransform.position);
+                        }
 
                     }
                     else
